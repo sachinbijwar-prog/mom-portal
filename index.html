@@ -17,8 +17,8 @@
         body {
             margin: 0;
             font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
+            background: #111111;
+            color: #f8fafc;
             overscroll-behavior: none
         }
 
@@ -77,30 +77,31 @@
         }
 
         .badge-draft {
-            background: #f1f5f9;
-            color: #64748b
+            background: #262626;
+            color: #94a3b8
         }
 
         .badge-review {
-            background: #fef3c7;
-            color: #b45309
+            background: rgba(212, 175, 55, 0.15);
+            color: #D4AF37
         }
 
         .badge-partial {
-            background: #dbeafe;
-            color: #1d4ed8
+            background: rgba(14, 165, 233, 0.15);
+            color: #0ea5e9
         }
 
         .badge-signed {
-            background: #d1fae5;
-            color: #065f46
+            background: rgba(16, 185, 129, 0.15);
+            color: #10B981
         }
 
         .card {
-            background: #fff;
+            background: #1A1A1A;
             border-radius: 16px;
-            border: 1px solid #f1f5f9;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, .06)
+            border: 1px solid #334155;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+            color: #f8fafc
         }
 
         .btn {
@@ -122,23 +123,24 @@
         }
 
         .btn-primary {
-            background: #4f46e5;
-            color: #fff;
-            box-shadow: 0 2px 8px rgba(79, 70, 229, .25)
+            background: linear-gradient(135deg, #D4AF37, #B8860B);
+            color: #000;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3)
         }
 
         .btn-primary:hover {
-            background: #4338ca
+            background: #B8860B;
+            transform: translateY(-1px)
         }
 
         .btn-secondary {
-            background: #fff;
-            color: #334155;
-            border: 1px solid #e2e8f0
+            background: #262626;
+            color: #fff;
+            border: 1px solid #f1f5f9
         }
 
         .btn-secondary:hover {
-            background: #f8fafc
+            background: #333333
         }
 
         .btn-danger {
@@ -151,9 +153,9 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, .9);
+            background: rgba(17, 17, 17, .98);
             backdrop-filter: blur(12px);
-            border-top: 1px solid #f1f5f9;
+            border-top: 1px solid #334155;
             display: flex;
             z-index: 100;
             padding: 8px 0 env(safe-area-inset-bottom)
@@ -178,7 +180,7 @@
         }
 
         .tabbar button.active {
-            color: #4f46e5
+            color: #D4AF37
         }
 
         .tabbar svg {
@@ -191,9 +193,9 @@
             position: sticky;
             top: 0;
             z-index: 50;
-            background: rgba(255, 255, 255, .85);
+            background: rgba(17, 17, 17, .95);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid #334155;
             padding: 12px 16px;
             display: flex;
             align-items: center;
@@ -211,10 +213,11 @@
             align-items: center;
             gap: 14px;
             padding: 16px;
-            background: #fff;
+            background: #1A1A1A;
             border-radius: 16px;
-            border: 1px solid #f1f5f9;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, .06)
+            border: 1px solid #334155;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+            color: #f8fafc
         }
 
         .stat-icon {
@@ -224,7 +227,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0
+            flex-shrink: 0;
+            background: rgba(212, 175, 55, 0.1) !important
         }
 
         .modal-overlay {
@@ -238,14 +242,17 @@
         }
 
         .modal-box {
-            background: #fff;
+            background: #1A1A1A;
             width: 100%;
             max-width: 640px;
             border-radius: 24px 24px 0 0;
             padding: 0 0 env(safe-area-inset-bottom);
             max-height: 90vh;
             overflow-y: auto;
-            animation: slideUp .25s ease
+            animation: slideUp .25s ease;
+            color: #f8fafc;
+            border: 1px solid #334155;
+            border-bottom: none
         }
 
         @keyframes slideUp {
@@ -263,34 +270,35 @@
             align-items: center;
             justify-content: space-between;
             padding: 18px 20px 14px;
-            border-bottom: 1px solid #f8fafc;
+            border-bottom: 1px solid #334155;
             position: sticky;
             top: 0;
-            background: #fff;
+            background: #1A1A1A;
             z-index: 1
         }
 
         .input-field {
             width: 100%;
             padding: 12px 16px;
-            border: 1.5px solid #e2e8f0;
+            border: 1.5px solid #334155;
             border-radius: 12px;
             font-size: 15px;
             outline: none;
             transition: border .15s;
-            background: #fff;
+            background: #262626;
+            color: #fff;
             font-family: inherit
         }
 
         .input-field:focus {
-            border-color: #4f46e5;
+            border-color: #D4AF37;
             box-shadow: 0 0 0 3px rgba(79, 70, 229, .1)
         }
 
         .label {
             font-size: 13px;
             font-weight: 600;
-            color: #475569;
+            color: #cbd5e1;
             margin-bottom: 6px;
             display: block
         }
@@ -310,15 +318,15 @@
             font-weight: 600;
             cursor: pointer;
             transition: all .15s;
-            border: 1.5px solid #e2e8f0;
-            background: #fff;
-            color: #475569
+            border: 1.5px solid #334155;
+            background: #1A1A1A;
+            color: #f8fafc
         }
 
         .chip.selected {
-            background: #4f46e5;
+            background: #D4AF37;
             color: #fff;
-            border-color: #4f46e5;
+            border-color: #D4AF37;
             box-shadow: 0 2px 8px rgba(79, 70, 229, .3)
         }
 
@@ -328,15 +336,17 @@
             justify-content: space-between;
             padding: 14px;
             border-radius: 14px;
-            border: 1.5px solid #f1f5f9;
+            border: 1.5px solid #334155;
             cursor: pointer;
             transition: all .15s;
-            background: #fff
+            background: #1A1A1A;
+            margin-bottom: 8px;
+            color: #f8fafc
         }
 
         .user-row.selected {
-            border-color: #c7d2fe;
-            background: #eef2ff
+            border-color: #D4AF37;
+            background: rgba(212, 175, 55, 0.1)
         }
 
         .avatar {
@@ -348,8 +358,8 @@
             justify-content: center;
             font-weight: 700;
             font-size: 14px;
-            background: #e2e8f0;
-            color: #475569;
+            background: #334155;
+            color: #cbd5e1;
             flex-shrink: 0
         }
 
@@ -370,18 +380,20 @@
             text-transform: uppercase;
             letter-spacing: .5px;
             border: none;
-            background: none;
+            background: transparent;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 700;
             cursor: pointer;
             border-radius: 8px;
-            color: #94a3b8;
-            font-family: inherit;
-            transition: all .15s
+            transition: all .2s;
+            font-family: inherit
         }
 
         .sig-tab.active {
-            background: #fff;
-            color: #4f46e5;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, .1)
+            background: #262626;
+            color: #D4AF37;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .3)
         }
 
         .timeline-item {
@@ -398,7 +410,7 @@
             top: 34px;
             bottom: 0;
             width: 1px;
-            background: #e2e8f0
+            background: #334155
         }
 
         .timeline-item:last-child::before {
@@ -414,7 +426,7 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            color: #4f46e5
+            color: #D4AF37
         }
 
         svg.icon {
@@ -429,16 +441,35 @@
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Firebase SDK (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script type="text/babel">
-        /* ─────────────────────────── DATA ─────────────────────────── */
-        const USERS = [
-            { id: 'u1', username: 'akshay', name: 'Akshay Paygude', role: 'Society Manager', wing: '', initials: 'AP', pin: '1234', color: '#4f46e5' },
+        /* ─────────────────────────── FIREBASE ─────────────────────────── */
+        const firebaseConfig = {
+            apiKey: "AIzaSyAq0J9OCpiuYx7ZgQaRRZNOQJjF602e9dA",
+            authDomain: "mom-portal-f129c.firebaseapp.com",
+            projectId: "mom-portal-f129c",
+            storageBucket: "mom-portal-f129c.firebasestorage.app",
+            messagingSenderId: "375721963935",
+            appId: "1:375721963935:web:37a86f7af5f9ff6f8d4daa",
+            measurementId: "G-3F838V7VWR"
+        };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        /* ─────────────────────────── DATA (DEFAULTS) ─────────────────────────── */
+        const DEFAULT_USERS = [
+            { id: 'u1', username: 'akshay', name: 'Akshay Paygude', role: 'Society Manager', wing: '', initials: 'AP', pin: '1234', color: '#D4AF37' },
             { id: 'u2', username: 'sachin', name: 'Sachin Bijwar', role: 'Chairman', wing: 'D Wing', initials: 'SB', pin: '2345', color: '#0891b2' },
             { id: 'u3', username: 'nazzar', name: 'Nazzar', role: 'Secretary', wing: 'D Wing', initials: 'NZ', pin: '3456', color: '#059669' },
             { id: 'u4', username: 'alhad', name: 'Alhad Saraf', role: 'Treasurer', wing: 'D Wing', initials: 'AS', pin: '4567', color: '#d97706' },
         ];
-        const WINGS = ['A Wing', 'B Wing', 'C Wing', 'D Wing', 'Clubhouse', 'General Area'];
-        const INITIAL_MOMS = [
+        const DEFAULT_MOMS = [
             {
                 id: 'm1', title: 'Annual General Body Meeting 2024', date: '2024-03-15', time: '18:30', wings: ['General Area'],
                 agenda: 'Financial audit review and AMC renewal discussion.',
@@ -458,26 +489,14 @@
                     { action: 'Signed', user: 'Priya Verma', ts: '2024-03-16T11:30:00Z' },
                     { action: 'Signed', user: 'Rahul Gupta', ts: '2024-03-17T09:15:00Z' },
                 ]
-            },
-            {
-                id: 'm2', title: 'Monthly Committee Meeting – April 2024', date: '2024-04-10', time: '20:00', wings: ['A Wing', 'B Wing'],
-                agenda: 'Leaking pipes in B Wing and lift maintenance in A Wing.',
-                content: 'Discussed urgent plumbing repairs in B Wing flat 304-308. Three vendor quotes reviewed: ₹42k, ₹38k, ₹51k. Committee approved vendor 2 at ₹38,000. A Wing lift scheduled for service on 15th April.',
-                status: 'Under Review', createdBy: 'u1', createdAt: '2024-04-10T22:00:00Z',
-                officeBearers: ['u2', 'u3'],
-                signatures: [],
-                comments: [{ id: 'c2', userId: 'u3', text: 'Please add pipe specifications and brand used.', ts: '2024-04-11T09:00:00Z' }],
-                auditTrail: [
-                    { action: 'Created', user: 'Sachin Bijwar', ts: '2024-04-10T22:00:00Z' },
-                    { action: 'Published', user: 'Sachin Bijwar', ts: '2024-04-11T08:00:00Z' },
-                ]
-            },
+            }
         ];
         const NOTIFICATIONS = [
             { id: 1, text: 'New MOM published: Monthly Committee Meeting – April 2024', read: false, time: '2 hrs ago' },
             { id: 2, text: 'Amit Sharma signed AGM 2024 MOM', read: true, time: '1 day ago' },
             { id: 3, text: 'Reminder: Monthly MOM awaiting your signature', read: false, time: '3 hrs ago' },
         ];
+        const WINGS = ['A Wing', 'B Wing', 'C Wing', 'D Wing', 'Clubhouse', 'General Area'];
 
         /* ─────────────────────────── ICONS (inline SVG) ─────────────────────────── */
         const icons = {
@@ -502,6 +521,9 @@
             checkCircle: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="icon"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>,
             bold: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="icon"><path d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z" /><path d="M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z" /></svg>,
             list: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="icon"><line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" /><line x1="3" y1="6" x2="3.01" y2="6" /><line x1="3" y1="12" x2="3.01" y2="12" /><line x1="3" y1="18" x2="3.01" y2="18" /></svg>,
+            trash: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="icon"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /></svg>,
+            eye: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="icon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>,
+            eyeOff: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="icon"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" /><line x1="1" y1="1" x2="23" y2="23" /></svg>,
         };
         const Icon = ({ n, size = 20, color }) => {
             const el = icons[n];
@@ -512,13 +534,8 @@
         /* ─────────────────────────── HELPERS ─────────────────────────── */
         const fmtDate = d => new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
         const fmtTime = ts => new Date(ts).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
-        const userMap = Object.fromEntries(USERS.map(u => [u.id, u]));
 
-        // Load any saved PINs from localStorage
-        USERS.forEach(u => {
-            const saved = localStorage.getItem('pin_' + u.id);
-            if (saved) u.pin = saved;
-        });
+        // userMap will be created dynamically in components using the users state
 
         /* ─────────────────────────── CHANGE PIN MODAL ─────────────────────────── */
         const ChangePINModal = ({ user, onClose, onChanged }) => {
@@ -594,7 +611,7 @@
                                             <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                                 <div style={{
                                                     width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 12,
-                                                    background: step === s ? '#4f46e5' : ['current', 'new', 'confirm'].indexOf(step) > i ? '#10b981' : '#f1f5f9',
+                                                    background: step === s ? '#D4AF37' : ['current', 'new', 'confirm'].indexOf(step) > i ? '#10b981' : '#f1f5f9',
                                                     color: step === s || ['current', 'new', 'confirm'].indexOf(step) > i ? '#fff' : '#94a3b8'
                                                 }}>
                                                     {['current', 'new', 'confirm'].indexOf(step) > i ? '✓' : (i + 1)}
@@ -606,13 +623,13 @@
 
                                     <div style={{ textAlign: 'center', marginBottom: 20 }}>
                                         <div style={{ fontSize: 32, marginBottom: 8 }}>{stepInfo.emoji}</div>
-                                        <p style={{ margin: 0, fontWeight: 700, color: '#334155' }}>{stepInfo.label}</p>
+                                        <p style={{ margin: 0, fontWeight: 700, color: '#f1f5f9' }}>{stepInfo.label}</p>
                                     </div>
 
                                     {/* PIN dots */}
                                     <div style={{ display: 'flex', justifyContent: 'center', gap: 14, marginBottom: 8 }}>
                                         {[0, 1, 2, 3].map(i => (
-                                            <div key={i} style={{ width: 14, height: 14, borderRadius: '50%', border: '2px solid #e2e8f0', background: activePin.length > i ? '#4f46e5' : 'transparent', transition: 'background .15s' }} />
+                                            <div key={i} style={{ width: 14, height: 14, borderRadius: '50%', border: '2px solid #334155', background: activePin.length > i ? '#D4AF37' : 'transparent', transition: 'background .15s' }} />
                                         ))}
                                     </div>
                                     {error && <p style={{ color: '#ef4444', fontSize: 12, textAlign: 'center', marginBottom: 8 }}>{error}</p>}
@@ -624,8 +641,8 @@
                                             <button key={i} onClick={() => pressDigit(d)}
                                                 style={{
                                                     padding: '16px 0', background: d === '⌫' ? '#fff5f5' : '#f8fafc', border: '1.5px solid',
-                                                    borderColor: d === '⌫' ? '#fecaca' : '#e2e8f0',
-                                                    borderRadius: 12, color: d === '⌫' ? '#ef4444' : '#334155',
+                                                    borderColor: d === '⌫' ? '#fecaca' : '#334155',
+                                                    borderRadius: 12, color: d === '⌫' ? '#ef4444' : '#f1f5f9',
                                                     fontSize: 18, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .1s'
                                                 }}>
                                                 {d}
@@ -641,7 +658,7 @@
         };
 
         /* ─────────────────────────── LOGIN SCREEN ─────────────────────────── */
-        const LoginScreen = ({ onLogin }) => {
+        const LoginScreen = ({ onLogin, users }) => {
             const [username, setUsername] = React.useState('');
             const [pin, setPin] = React.useState('');
             const [showPin, setShowPin] = React.useState(false);
@@ -653,7 +670,7 @@
                 if (!username.trim() || !pin.trim()) { setError('Please enter username and PIN.'); return; }
                 setLoading(true);
                 setTimeout(() => {
-                    const user = USERS.find(u => u.username.toLowerCase() === username.trim().toLowerCase());
+                    const user = users.find(u => u.username.toLowerCase() === username.trim().toLowerCase());
                     if (!user) { setError('Username not found.'); setLoading(false); return; }
                     if (pin !== user.pin) { setError('Incorrect PIN. Please try again.'); setPin(''); setLoading(false); return; }
                     setError('');
@@ -664,20 +681,31 @@
             const roleIcon = r => ({ 'Society Manager': '🏢', 'Chairman': '👑', 'Secretary': '📋', 'Treasurer': '💰' }[r] || '👤');
 
             return (
-                <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg,#1e1b4b 0%,#312e81 60%,#4338ca 100%)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '24px 20px' }}>
+                <div style={{
+                    minHeight: '100vh',
+                    background: 'url("arv_royale_top_view.png") center/cover no-repeat',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '24px 20px',
+                    position: 'relative'
+                }}>
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%)', zIndex: 0 }} />
 
                     {/* Logo */}
-                    <div style={{ textAlign: 'center', marginBottom: 36 }}>
-                        <div style={{ width: 68, height: 68, background: 'rgba(255,255,255,.15)', borderRadius: 22, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px', backdropFilter: 'blur(10px)', border: '1.5px solid rgba(255,255,255,.2)', fontSize: 34 }}>
-                            🏛️
+                    <div style={{ textAlign: 'center', marginBottom: 36, position: 'relative', zIndex: 1 }}>
+                        <div style={{ width: 100, height: 100, background: '#D4AF37', borderRadius: 24, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', boxShadow: '0 10px 20px rgba(212, 175, 55, 0.3)', overflow: 'hidden', position: 'relative' }}>
+                            <img src="arv_royale_logo.png" style={{ width: '85%', height: '85%', objectFit: 'contain', position: 'absolute', zIndex: 2 }} alt="" onError={e => e.target.style.display = 'none'} />
+                            <div style={{ fontSize: 48, position: 'absolute', zIndex: 1 }}>👑</div>
                         </div>
-                        <h1 style={{ margin: 0, color: '#fff', fontSize: 26, fontWeight: 800, letterSpacing: -.5 }}>Smart MOM</h1>
-                        <p style={{ margin: '6px 0 0', color: 'rgba(255,255,255,.55)', fontSize: 13, fontWeight: 500 }}>Society Meeting Minutes Portal</p>
+                        <h1 style={{ margin: 0, color: '#fff', fontSize: 32, fontWeight: 900, letterSpacing: -1 }}>ARV ROYALE</h1>
+                        <p style={{ margin: '4px 0 0', color: '#D4AF37', fontSize: 13, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 2 }}>Digital Signature Portal</p>
                     </div>
 
                     {/* Form Card */}
-                    <div style={{ width: '100%', maxWidth: 380, background: 'rgba(255,255,255,.08)', backdropFilter: 'blur(20px)', borderRadius: 24, border: '1.5px solid rgba(255,255,255,.15)', padding: 28 }}>
-                        <h2 style={{ margin: '0 0 22px', color: '#fff', fontSize: 18, fontWeight: 700 }}>Sign In</h2>
+                    <div style={{ width: '100%', maxWidth: 380, background: 'rgba(38, 38, 38, .8)', backdropFilter: 'blur(24px)', borderRadius: 24, border: '1.5px solid rgba(255,255,255,.08)', padding: 32, boxShadow: '0 20px 40px rgba(0,0,0,.5)', position: 'relative', zIndex: 1 }}>
+                        <h2 style={{ margin: '0 0 24px', color: '#fff', fontSize: 20, fontWeight: 700 }}>Sign In</h2>
 
                         <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                             {/* Username */}
@@ -713,8 +741,8 @@
                                         onKeyDown={e => e.key === 'Enter' && handleLogin()}
                                     />
                                     <button type="button" onClick={() => setShowPin(v => !v)}
-                                        style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,.5)', fontSize: 18, padding: 4 }}>
-                                        {showPin ? '🙈' : '👁️'}
+                                        style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <Icon n={showPin ? 'eyeOff' : 'eye'} size={20} />
                                     </button>
                                 </div>
                             </div>
@@ -728,7 +756,7 @@
 
                             {/* Submit */}
                             <button type="submit" disabled={loading}
-                                style={{ padding: '14px', background: '#4f46e5', border: 'none', borderRadius: 12, color: '#fff', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s', boxShadow: '0 4px 14px rgba(79,70,229,.4)', marginTop: 4 }}>
+                                style={{ padding: '14px', background: 'linear-gradient(135deg, #D4AF37, #B8860B)', border: 'none', borderRadius: 12, color: '#000', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', transition: 'all .2s', boxShadow: '0 4px 14px rgba(212, 175, 55, 0.3)', marginTop: 4 }}>
                                 {loading ? 'Signing in…' : 'Sign In →'}
                             </button>
                         </form>
@@ -736,7 +764,7 @@
                         {/* Hint */}
                         <div style={{ marginTop: 20, padding: '12px 14px', background: 'rgba(255,255,255,.05)', borderRadius: 12, border: '1px solid rgba(255,255,255,.1)' }}>
                             <p style={{ margin: '0 0 8px', color: 'rgba(255,255,255,.5)', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: .8 }}>Registered Users</p>
-                            {USERS.map(u => (
+                            {users.map(u => (
                                 <div key={u.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 0', borderBottom: '1px solid rgba(255,255,255,.06)' }}>
                                     <span style={{ color: 'rgba(255,255,255,.7)', fontSize: 12 }}>{roleIcon(u.role)} <strong style={{ color: '#fff' }}>{u.username}</strong></span>
                                     <span style={{ color: 'rgba(255,255,255,.35)', fontSize: 11, fontFamily: 'monospace' }}>PIN: {u.pin}</span>
@@ -761,9 +789,9 @@
         /* ─────────────────────────── DASHBOARD ─────────────────────────── */
         const Dashboard = ({ moms, onMOM, onCreate }) => {
             const stats = [
-                { label: 'Total MOMs', val: moms.length, icon: 'fileText', bg: '#eff6ff', col: '#2563eb' },
-                { label: 'Pending Review', val: moms.filter(m => m.status === 'Under Review').length, icon: 'clock', bg: '#fffbeb', col: '#d97706' },
-                { label: 'Fully Signed', val: moms.filter(m => m.status === 'Fully Signed').length, icon: 'checkCircle', bg: '#ecfdf5', col: '#059669' },
+                { label: 'Total MOMs', val: moms.length, icon: 'fileText', bg: 'rgba(212, 175, 55, 0.1)', col: '#D4AF37' },
+                { label: 'Pending Review', val: moms.filter(m => m.status === 'Under Review').length, icon: 'clock', bg: 'rgba(245, 158, 11, 0.1)', col: '#f59e0b' },
+                { label: 'Fully Signed', val: moms.filter(m => m.status === 'Fully Signed').length, icon: 'checkCircle', bg: 'rgba(16, 185, 129, 0.1)', col: '#10b981' },
             ];
             return (
                 <div className="fade">
@@ -793,7 +821,7 @@
 
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
                         <h2 style={{ margin: 0, fontSize: 15, fontWeight: 700 }}>Recent Documents</h2>
-                        <span style={{ fontSize: 12, color: '#4f46e5', fontWeight: 600 }}>View All</span>
+                        <span style={{ fontSize: 12, color: '#D4AF37', fontWeight: 600 }}>View All</span>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -810,7 +838,7 @@
                                     <Badge status={m.status} />
                                 </div>
                                 <div style={{ marginTop: 10, height: 4, borderRadius: 999, background: '#f1f5f9', overflow: 'hidden' }}>
-                                    <div style={{ height: '100%', borderRadius: 999, background: '#4f46e5', width: `${(m.signatures.length / Math.max(m.officeBearers.length, 1)) * 100}%`, transition: 'width .4s' }} />
+                                    <div style={{ height: '100%', borderRadius: 999, background: '#D4AF37', width: `${(m.signatures.length / Math.max(m.officeBearers.length, 1)) * 100}%`, transition: 'width .4s' }} />
                                 </div>
                                 <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 4 }}>{m.signatures.length}/{m.officeBearers.length} signed</div>
                             </div>
@@ -821,8 +849,8 @@
         };
 
         /* ─────────────────────────── CREATE MOM ─────────────────────────── */
-        const CreateMOM = ({ onBack, onSave, currentUser, editMOM }) => {
-            const offBearers = USERS.filter(u => u.role !== 'Society Manager');
+        const CreateMOM = ({ onBack, onSave, currentUser, editMOM, users }) => {
+            const offBearers = users.filter(u => u.role !== 'Society Manager');
             const allIds = offBearers.map(u => u.id);
             const [f, setF] = React.useState(editMOM || { title: '', date: new Date().toISOString().split('T')[0], time: '18:00', agenda: '', content: '', officeBearers: allIds });
             const [saving, setSaving] = React.useState(false);
@@ -835,20 +863,36 @@
                 setSaving(true);
                 const now = new Date().toISOString();
                 const trail = editMOM
-                    ? [...(editMOM.auditTrail||[]), { action: 'Edited', user: currentUser.name, ts: now }]
+                    ? [...(editMOM.auditTrail || []), { action: 'Edited', user: currentUser.name, ts: now }]
                     : [{ action: 'Created', user: currentUser.name, ts: now }];
                 if (status === 'Under Review' && (!editMOM || editMOM.status === 'Draft')) {
                     trail.push({ action: 'Published', user: currentUser.name, ts: now });
                 }
-                setTimeout(() => {
-                    onSave({ ...f, status, id: editMOM ? editMOM.id : 'm' + Date.now(), createdBy: 'u1', createdAt: editMOM ? editMOM.createdAt : now, signatures: editMOM ? editMOM.signatures : [], comments: editMOM ? editMOM.comments : [], auditTrail: trail });
-                    setSaving(false);
-                }, 800);
+                setTimeout(async () => {
+                    try {
+                        const momData = {
+                            ...f,
+                            status,
+                            id: editMOM ? editMOM.id : 'm' + Date.now(),
+                            createdBy: currentUser.id,
+                            createdAt: editMOM ? editMOM.createdAt : now,
+                            signatures: editMOM ? editMOM.signatures : [],
+                            comments: editMOM ? editMOM.comments : [],
+                            auditTrail: trail
+                        };
+                        await onSave(momData);
+                    } catch (err) {
+                        console.error("Save Error:", err);
+                        alert("Failed to save MOM: " + err.message);
+                    } finally {
+                        setSaving(false);
+                    }
+                }, 400);
             };
             return (
                 <div className="fade" style={{ paddingBottom: 100 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-                        <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, margin: -8, color: '#475569' }} onClick={onBack}><Icon n="arrowLeft" size={24} /></button>
+                        <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, margin: -8, color: '#cbd5e1' }} onClick={onBack}><Icon n="arrowLeft" size={24} /></button>
                         <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>{editMOM ? 'Edit MOM' : 'New MOM'}</h1>
                     </div>
 
@@ -870,9 +914,9 @@
                         </div>
 
                         <div><label className="label">MOM Content</label>
-                            <div style={{ border: '1.5px solid #e2e8f0', borderRadius: 12, overflow: 'hidden' }}>
-                                <div style={{ display: 'flex', gap: 4, padding: '8px 10px', background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
-                                    {['bold', 'list'].map(ic => <button key={ic} style={{ border: 'none', background: 'none', cursor: 'pointer', padding: '4px 6px', borderRadius: 6, color: '#475569' }}><Icon n={ic} size={16} /></button>)}
+                            <div style={{ border: '1.5px solid #334155', borderRadius: 12, overflow: 'hidden' }}>
+                                <div style={{ display: 'flex', gap: 4, padding: '8px 10px', background: '#262626', borderBottom: '1px solid #334155' }}>
+                                    {['bold', 'list'].map(ic => <button key={ic} style={{ border: 'none', background: 'none', cursor: 'pointer', padding: '4px 6px', borderRadius: 6, color: '#cbd5e1' }}><Icon n={ic} size={16} /></button>)}
                                 </div>
                                 <textarea className="input-field" rows={6} placeholder="Type the minutes of the meeting here&#8230;" value={f.content} onChange={e => setF({ ...f, content: e.target.value })} style={{ border: 'none', borderRadius: 0, resize: 'vertical' }} />
                             </div>
@@ -882,7 +926,7 @@
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
                                 <label className="label" style={{ margin: 0 }}>Office Bearers to Sign</label>
                                 <button onClick={toggleAll}
-                                    style={{ fontSize: 12, fontWeight: 700, color: allSelected ? '#ef4444' : '#4f46e5', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
+                                    style={{ fontSize: 12, fontWeight: 700, color: allSelected ? '#ef4444' : '#D4AF37', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
                                     {allSelected ? 'Deselect All' : 'Select All'}
                                 </button>
                             </div>
@@ -890,10 +934,10 @@
                                 {offBearers.map(u => (
                                     <div key={u.id} className={`user-row${f.officeBearers.includes(u.id) ? ' selected' : ''}`} onClick={() => toggle('officeBearers', u.id)}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                                            <div className="avatar" style={{ background: f.officeBearers.includes(u.id) ? '#c7d2fe' : '#e2e8f0', color: f.officeBearers.includes(u.id) ? '#4338ca' : '#475569' }}>{u.initials}</div>
+                                            <div className="avatar" style={{ background: f.officeBearers.includes(u.id) ? '#c7d2fe' : '#334155', color: f.officeBearers.includes(u.id) ? '#4338ca' : '#cbd5e1' }}>{u.initials}</div>
                                             <div><div style={{ fontWeight: 700, fontSize: 14 }}>{u.name}</div><div style={{ fontSize: 12, color: '#94a3b8' }}>{u.role}</div></div>
                                         </div>
-                                        <div style={{ width: 22, height: 22, borderRadius: '50%', border: `2px solid ${f.officeBearers.includes(u.id) ? '#4f46e5' : '#e2e8f0'}`, background: f.officeBearers.includes(u.id) ? '#4f46e5' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexShrink: 0 }}>
+                                        <div style={{ width: 22, height: 22, borderRadius: '50%', border: `2px solid ${f.officeBearers.includes(u.id) ? '#D4AF37' : '#334155'}`, background: f.officeBearers.includes(u.id) ? '#D4AF37' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexShrink: 0 }}>
                                             {f.officeBearers.includes(u.id) && <Icon n="check" size={12} color="#fff" />}
                                         </div>
                                     </div>
@@ -902,7 +946,7 @@
                         </div>
                     </div>
 
-                    <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: '#fff', borderTop: '1px solid #f1f5f9', padding: '12px 16px 20px', display: 'flex', gap: 10, maxWidth: 640, margin: '0 auto' }}>
+                    <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: '#1A1A1A', borderTop: '1px solid #334155', padding: '12px 16px 20px', display: 'flex', gap: 10, maxWidth: 640, margin: '0 auto', zIndex: 100 }}>
                         <button className="btn btn-secondary" style={{ flex: 1, padding: '13px 0' }} onClick={() => save('Draft')} disabled={saving}>Save Draft</button>
                         <button className="btn btn-primary" style={{ flex: 1.5, padding: '13px 0' }} onClick={() => save('Under Review')} disabled={saving}>{saving ? 'Publishing&#8230;' : 'Publish for Review'}</button>
                     </div>
@@ -912,7 +956,7 @@
 
 
         /* ─────────────────────────── MOM DETAIL ─────────────────────────── */
-        const MOMDetail = ({ mom, onBack, onSign, onAddComment, onEdit, onPublish, currentUser }) => {
+        const MOMDetail = ({ mom, onBack, onSign, onAddComment, onEdit, onPublish, onDelete, currentUser, userMap }) => {
             const [comment, setComment] = React.useState('');
 
             const addComment = () => {
@@ -931,8 +975,10 @@
             return (
                 <div className="fade" style={{ paddingBottom: 90 }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-                        <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, margin: -8, color: '#475569' }} onClick={onBack}><Icon n="arrowLeft" size={24} /></button>
-                        <Badge status={mom.status} />
+                        <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, margin: -8, color: '#cbd5e1' }} onClick={onBack}><Icon n="arrowLeft" size={24} /></button>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                            <Badge status={mom.status} />
+                        </div>
                     </div>
                     <h1 style={{ fontSize: 20, fontWeight: 700, lineHeight: 1.3, marginBottom: 4 }}>{mom.title}</h1>
                     <p style={{ margin: '0 0 16px', fontSize: 13, color: '#94a3b8' }}>Published {fmtDate(mom.createdAt)}</p>
@@ -950,12 +996,12 @@
 
                     <div className="card" style={{ padding: 16, marginBottom: 14 }}>
                         <div style={{ fontSize: 11, fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>Agenda</div>
-                        <p style={{ margin: 0, fontStyle: 'italic', color: '#334155', lineHeight: 1.6 }}>"{mom.agenda}"</p>
+                        <p style={{ margin: 0, fontStyle: 'italic', color: '#f1f5f9', lineHeight: 1.6 }}>"{mom.agenda}"</p>
                     </div>
 
                     <div className="card" style={{ padding: 16, marginBottom: 20 }}>
                         <div style={{ fontSize: 11, fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>MOM Notes</div>
-                        <p style={{ margin: 0, color: '#334155', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>{mom.content}</p>
+                        <p style={{ margin: 0, color: '#f1f5f9', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>{mom.content}</p>
                     </div>
 
                     {/* Signatures */}
@@ -969,7 +1015,7 @@
                                     <div key={uid} className="card" style={{ padding: '14px 16px' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: s ? 12 : 0 }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                                                <div style={{ width: 10, height: 10, borderRadius: '50%', background: s ? '#10b981' : '#e2e8f0', flexShrink: 0 }} />
+                                                <div style={{ width: 10, height: 10, borderRadius: '50%', background: s ? '#10b981' : '#334155', flexShrink: 0 }} />
                                                 <div>
                                                     <div style={{ fontWeight: 700, fontSize: 13 }}>{u?.name}</div>
                                                     <div style={{ fontSize: 11, color: '#94a3b8' }}>{u?.role}</div>
@@ -985,15 +1031,15 @@
                                         </div>
                                         {/* Show actual signature if signed */}
                                         {s && (
-                                            <div style={{ borderTop: '1px dashed #e2e8f0', paddingTop: 10, marginTop: 2 }}>
+                                            <div style={{ borderTop: '1px dashed #334155', paddingTop: 10, marginTop: 2 }}>
                                                 {s.type === 'drawn' && s.data && s.data !== 'uploaded' ? (
-                                                    <img src={s.data} alt="signature" style={{ maxHeight: 60, maxWidth: '100%', display: 'block', filter: 'contrast(1.2)' }} />
+                                                    <img src={s.data} alt="signature" style={{ maxHeight: 60, maxWidth: '100%', display: 'block', filter: 'brightness(1.5) contrast(1.2)' }} />
                                                 ) : s.type === 'type' || (s.type === 'typed') ? (
-                                                    <div style={{ fontFamily: 'Dancing Script,cursive', fontSize: 26, color: '#3730a3', lineHeight: 1.2 }}>{u?.name}</div>
+                                                    <div style={{ fontFamily: 'Dancing Script,cursive', fontSize: 26, color: '#D4AF37', lineHeight: 1.2 }}>{u?.name}</div>
                                                 ) : s.type === 'upload' ? (
-                                                    <div style={{ fontSize: 12, color: '#94a3b8', fontStyle: 'italic' }}>📤 Signature uploaded</div>
+                                                    <div style={{ fontSize: 12, color: '#D4AF37', fontStyle: 'italic' }}>📤 Signature uploaded</div>
                                                 ) : (
-                                                    <div style={{ fontFamily: 'Dancing Script,cursive', fontSize: 26, color: '#3730a3', lineHeight: 1.2 }}>{u?.name}</div>
+                                                    <div style={{ fontFamily: 'Dancing Script,cursive', fontSize: 26, color: '#D4AF37', lineHeight: 1.2 }}>{u?.name}</div>
                                                 )}
                                                 <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 4, textTransform: 'capitalize' }}>via {s.type} · {fmtDate(s.timestamp)}</div>
                                             </div>
@@ -1015,22 +1061,22 @@
                             const isMe = c.userId === currentUser.id;
                             return (
                                 <div key={c.id} style={{ display: 'flex', gap: 10, marginBottom: 12, flexDirection: isMe ? 'row-reverse' : 'row' }}>
-                                    <div className="avatar" style={{ width: 32, height: 32, fontSize: 12, flexShrink: 0, background: userMap[c.userId]?.color || '#e2e8f0', color: '#fff' }}>{u.initials || u.name?.[0]}</div>
+                                    <div className="avatar" style={{ width: 32, height: 32, fontSize: 12, flexShrink: 0, background: userMap[c.userId]?.color || '#334155', color: '#fff' }}>{u.initials || u.name?.[0]}</div>
                                     <div style={{ flex: 1, maxWidth: '85%' }}>
-                                        <div style={{ background: isMe ? '#eef2ff' : '#f8fafc', borderRadius: isMe ? '12px 12px 2px 12px' : '12px 12px 12px 2px', padding: '10px 14px' }}>
+                                        <div style={{ background: isMe ? 'rgba(212, 175, 55, 0.05)' : '#1A1A1A', borderRadius: isMe ? '12px 12px 2px 12px' : '12px 12px 12px 2px', padding: '10px 14px', border: '1px solid #334155' }}>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4, gap: 8 }}>
-                                                <span style={{ fontSize: 12, fontWeight: 700, color: isMe ? '#4338ca' : '#334155' }}>{isMe ? 'You' : u.name}</span>
+                                                <span style={{ fontSize: 12, fontWeight: 700, color: isMe ? '#D4AF37' : '#cbd5e1' }}>{isMe ? 'You' : u.name}</span>
                                                 <span style={{ fontSize: 10, color: '#94a3b8', whiteSpace: 'nowrap' }}>{fmtTime(c.ts)}</span>
                                             </div>
-                                            <p style={{ margin: 0, fontSize: 13, color: '#334155' }}>{c.text}</p>
+                                            <p style={{ margin: 0, fontSize: 13, color: '#f8fafc' }}>{c.text}</p>
                                         </div>
                                     </div>
                                 </div>
                             );
                         })}
-                        <div style={{ display: 'flex', gap: 8, alignItems: 'center', background: '#fff', border: '1.5px solid #e2e8f0', borderRadius: 14, padding: '8px 8px 8px 14px', marginTop: 8 }}>
-                            <input style={{ flex: 1, border: 'none', outline: 'none', fontSize: 14, fontFamily: 'inherit', background: 'transparent' }} placeholder="Add a comment…" value={comment} onChange={e => setComment(e.target.value)} onKeyDown={e => e.key === 'Enter' && addComment()} />
-                            <button onClick={addComment} style={{ width: 36, height: 36, borderRadius: 10, background: '#4f46e5', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexShrink: 0 }}><Icon n="send" size={16} color="#fff" /></button>
+                        <div style={{ display: 'flex', gap: 8, alignItems: 'center', background: '#262626', border: '1.5px solid #334155', borderRadius: 14, padding: '8px 8px 8px 14px', marginTop: 8 }}>
+                            <input style={{ flex: 1, border: 'none', outline: 'none', fontSize: 14, fontFamily: 'inherit', background: 'transparent', color: '#fff' }} placeholder="Add a comment…" value={comment} onChange={e => setComment(e.target.value)} onKeyDown={e => e.key === 'Enter' && addComment()} />
+                            <button onClick={addComment} style={{ width: 36, height: 36, borderRadius: 10, background: '#D4AF37', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', flexShrink: 0 }}><Icon n="send" size={16} color="#fff" /></button>
                         </div>
                     </div>
 
@@ -1039,7 +1085,7 @@
                         <div style={{ fontSize: 11, fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>Audit Trail</div>
                         {mom.auditTrail.map((a, i) => (
                             <div key={i} className="timeline-item">
-                                <div className="tl-dot"><Icon n="checkCircle" size={16} color="#4f46e5" /></div>
+                                <div className="tl-dot"><Icon n="checkCircle" size={16} color="#D4AF37" /></div>
                                 <div style={{ paddingTop: 6 }}>
                                     <div style={{ fontWeight: 700, fontSize: 13 }}>{a.action}</div>
                                     <div style={{ fontSize: 12, color: '#94a3b8' }}>{a.user} · {fmtDate(a.ts || a.timestamp)}</div>
@@ -1049,7 +1095,7 @@
                     </div>
 
                     {/* Bottom bar */}
-                    <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: 'rgba(255,255,255,.95)', backdropFilter: 'blur(12px)', borderTop: '1px solid #f1f5f9', padding: '12px 16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 640, margin: '0 auto' }}>
+                    <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: 'rgba(17, 17, 17, .98)', backdropFilter: 'blur(12px)', borderTop: '1px solid #334155', padding: '12px 16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 640, margin: '0 auto' }}>
                         <div>
                             <div style={{ fontSize: 12, color: '#94a3b8' }}>
                                 {isDraft && isManager ? 'Draft — Not published yet' : fullySignedMOM ? 'All signatures collected' : isDraft ? 'Awaiting publication' : isOfficeBearerForMOM ? 'Action required' : 'Reviewing'}
@@ -1059,14 +1105,19 @@
                             </div>
                         </div>
                         <div style={{ display: 'flex', gap: 8 }}>
-                            {isDraft && isManager && (
+                            {isManager && (mom.status === 'Draft' || mom.status === 'Under Review') && (
                                 <>
-                                    <button className="btn btn-secondary" style={{ padding: '11px 16px' }} onClick={onEdit}>
-                                        <Icon n="pen" size={15} color="#475569" /> Edit
+                                    <button className="btn btn-secondary" style={{ padding: '11px 14px', borderColor: '#ef4444', color: '#ef4444', background: 'rgba(239, 68, 68, 0.05)' }} onClick={() => onDelete(mom.id)}>
+                                        <Icon n="trash" size={15} color="#ef4444" />
                                     </button>
-                                    <button className="btn btn-primary" style={{ padding: '11px 16px' }} onClick={onPublish}>
-                                        <Icon n="send" size={15} color="#fff" /> Publish
+                                    <button className="btn btn-secondary" style={{ padding: '11px 16px', background: 'rgba(255,255,255,0.05)' }} onClick={() => onEdit(mom)}>
+                                        <Icon n="pen" size={15} color="#D4AF37" /> Edit
                                     </button>
+                                    {isDraft && (
+                                        <button className="btn btn-primary" style={{ padding: '11px 16px' }} onClick={onPublish}>
+                                            <Icon n="send" size={15} color="#000" /> Publish
+                                        </button>
+                                    )}
                                 </>
                             )}
                             {!isDraft && isOfficeBearerForMOM && (
@@ -1074,7 +1125,7 @@
                                     style={{ padding: '11px 22px', opacity: canSign ? 1 : .6, cursor: canSign ? 'pointer' : 'not-allowed' }}
                                     onClick={canSign ? onSign : undefined}
                                     disabled={!canSign}>
-                                    <Icon n="pen" size={16} color={canSign ? "#fff" : "#94a3b8"} />
+                                    <Icon n="pen" size={16} color={canSign ? "#000" : "#94a3b8"} />
                                     {' '}{alreadySigned || fullySignedMOM ? 'Signed ✓' : 'Sign Now'}
                                 </button>
                             )}
@@ -1105,7 +1156,7 @@
                             c.height = c.offsetHeight * dpr;
                             const ctx = c.getContext('2d');
                             ctx.scale(dpr, dpr);
-                            ctx.strokeStyle = '#1e293b'; ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                            ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
                         });
                     });
                 }
@@ -1138,26 +1189,26 @@
                     </div>
 
                     {mode === 'draw' && (
-                        <div style={{ position: 'relative', background: '#f8fafc', borderRadius: 16, border: '2px dashed #e2e8f0', overflow: 'hidden', marginBottom: 12 }}>
+                        <div style={{ position: 'relative', background: '#262626', borderRadius: 16, border: '2px dashed #334155', overflow: 'hidden', marginBottom: 12 }}>
                             <canvas ref={canvasRef} style={{ display: 'block', width: '100%', height: 180, cursor: 'crosshair' }}
                                 onMouseDown={startDraw} onMouseMove={moveDraw} onMouseUp={endDraw} onMouseLeave={endDraw}
                                 onTouchStart={e => { e.preventDefault(); startDraw(e); }} onTouchMove={e => { e.preventDefault(); moveDraw(e); }} onTouchEnd={endDraw} />
                             {!hasSig && <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#cbd5e1', fontSize: 14, pointerEvents: 'none' }}>Sign here with your finger or mouse</div>}
-                            {hasSig && <button onClick={clear} style={{ position: 'absolute', top: 8, right: 8, background: 'rgba(255,255,255,.9)', border: '1px solid #e2e8f0', borderRadius: 8, padding: '4px 10px', cursor: 'pointer', fontSize: 12, color: '#ef4444', display: 'flex', alignItems: 'center', gap: 4 }}><Icon n="refresh" size={14} color="#ef4444" />Clear</button>}
+                            {hasSig && <button onClick={clear} style={{ position: 'absolute', top: 8, right: 8, background: 'rgba(255,255,255,.9)', border: '1px solid #334155', borderRadius: 8, padding: '4px 10px', cursor: 'pointer', fontSize: 12, color: '#ef4444', display: 'flex', alignItems: 'center', gap: 4 }}><Icon n="refresh" size={14} color="#ef4444" />Clear</button>}
                         </div>
                     )}
 
                     {mode === 'type' && (
                         <div style={{ marginBottom: 12 }}>
-                            <input className="input-field" style={{ textAlign: 'center', fontFamily: 'Dancing Script,cursive', fontSize: 28, color: '#3730a3', padding: '16px' }} value={typed} onChange={e => setTyped(e.target.value)} placeholder="Type your name…" />
+                            <input className="input-field" style={{ textAlign: 'center', fontFamily: 'Dancing Script,cursive', fontSize: 28, color: '#D4AF37', padding: '16px' }} value={typed} onChange={e => setTyped(e.target.value)} placeholder="Type your name…" />
                             <p style={{ textAlign: 'center', fontSize: 11, color: '#94a3b8', marginTop: 8 }}>This will appear as your digital signature</p>
                         </div>
                     )}
 
                     {mode === 'upload' && (
-                        <label style={{ display: 'block', background: '#f8fafc', border: '2px dashed #e2e8f0', borderRadius: 16, padding: 32, textAlign: 'center', cursor: 'pointer', marginBottom: 12 }}>
+                        <label style={{ display: 'block', background: '#262626', border: '2px dashed #334155', borderRadius: 16, padding: 32, textAlign: 'center', cursor: 'pointer', marginBottom: 12 }}>
                             <Icon n="upload" size={36} color="#94a3b8" />
-                            <p style={{ margin: '10px 0 4px', fontWeight: 700, color: '#334155' }}>Tap to upload signature</p>
+                            <p style={{ margin: '10px 0 4px', fontWeight: 700, color: '#f1f5f9' }}>Tap to upload signature</p>
                             <p style={{ margin: 0, fontSize: 12, color: '#94a3b8' }}>PNG or JPG, max 5MB</p>
                             <input type="file" accept="image/*" style={{ display: 'none' }} />
                         </label>
@@ -1179,14 +1230,14 @@
         /* ─────────────────────────── NOTIFICATIONS ─────────────────────────── */
         const NotifPanel = ({ onClose }) => (
             <div style={{ position: 'fixed', inset: 0, zIndex: 300 }} onClick={onClose}>
-                <div style={{ position: 'absolute', top: 58, right: 12, width: 290, background: '#fff', borderRadius: 16, boxShadow: '0 8px 32px rgba(0,0,0,.15)', border: '1px solid #f1f5f9', overflow: 'hidden' }} onClick={e => e.stopPropagation()}>
-                    <div style={{ padding: '14px 16px', fontWeight: 700, fontSize: 14, borderBottom: '1px solid #f8fafc' }}>Notifications</div>
+                <div style={{ position: 'absolute', top: 58, right: 12, width: 290, background: '#262626', borderRadius: 16, boxShadow: '0 8px 32px rgba(0,0,0,.15)', border: '1px solid #334155', overflow: 'hidden' }} onClick={e => e.stopPropagation()}>
+                    <div style={{ padding: '14px 16px', fontWeight: 700, fontSize: 14, borderBottom: '1px solid #334155' }}>Notifications</div>
                     {NOTIFICATIONS.map(n => (
-                        <div key={n.id} style={{ display: 'flex', gap: 12, padding: '12px 16px', background: n.read ? '#fff' : '#f5f7ff', borderBottom: '1px solid #f8fafc' }}>
-                            <div style={{ width: 32, height: 32, borderRadius: 10, background: n.read ? '#f1f5f9' : '#eef2ff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                <Icon n="info" size={16} color={n.read ? '#94a3b8' : '#4f46e5'} />
+                        <div key={n.id} style={{ display: 'flex', gap: 12, padding: '12px 16px', background: n.read ? '#262626' : 'rgba(212, 175, 55, 0.05)', borderBottom: '1px solid #334155' }}>
+                            <div style={{ width: 32, height: 32, borderRadius: 10, background: n.read ? '#334155' : 'rgba(212, 175, 55, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                                <Icon n="info" size={16} color={n.read ? '#94a3b8' : '#D4AF37'} />
                             </div>
-                            <div><p style={{ margin: '0 0 3px', fontSize: 12, color: '#334155', lineHeight: 1.4 }}>{n.text}</p><p style={{ margin: 0, fontSize: 11, color: '#94a3b8' }}>{n.time}</p></div>
+                            <div><p style={{ margin: '0 0 3px', fontSize: 12, color: '#f8fafc', lineHeight: 1.4 }}>{n.text}</p><p style={{ margin: 0, fontSize: 11, color: '#94a3b8' }}>{n.time}</p></div>
                         </div>
                     ))}
                 </div>
@@ -1222,9 +1273,9 @@
                             <button key={s} onClick={() => setFilter(s)}
                                 style={{
                                     flexShrink: 0, padding: '6px 14px', borderRadius: 999, border: '1.5px solid', fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit',
-                                    background: filter === s ? '#4f46e5' : '#fff',
-                                    color: filter === s ? '#fff' : '#64748b',
-                                    borderColor: filter === s ? '#4f46e5' : '#e2e8f0'
+                                    background: filter === s ? '#D4AF37' : '#262626',
+                                    color: filter === s ? '#000' : '#94a3b8',
+                                    borderColor: filter === s ? '#D4AF37' : '#334155'
                                 }}>
                                 {s}
                             </button>
@@ -1255,7 +1306,7 @@
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                                         <div style={{ flex: 1, height: 4, borderRadius: 999, background: '#f1f5f9', overflow: 'hidden' }}>
-                                            <div style={{ height: '100%', borderRadius: 999, background: m.status === 'Fully Signed' ? '#10b981' : m.status === 'Partially Signed' ? '#4f46e5' : '#f59e0b', width: sigPct + '%', transition: 'width .4s' }} />
+                                            <div style={{ height: '100%', borderRadius: 999, background: m.status === 'Fully Signed' ? '#10b981' : m.status === 'Partially Signed' ? '#D4AF37' : '#f59e0b', width: sigPct + '%', transition: 'width .4s' }} />
                                         </div>
                                         <span style={{ fontSize: 11, color: '#94a3b8', whiteSpace: 'nowrap' }}>{m.signatures.length}/{m.officeBearers.length} signed</span>
                                     </div>
@@ -1280,9 +1331,9 @@
             ).sort((a, b) => new Date(b.ts || b.timestamp) - new Date(a.ts || a.timestamp));
 
             const actionColor = a => ({
-                'Created': '#64748b', 'Published': '#d97706', 'Reviewed': '#2563eb',
-                'Signed': '#059669', 'Edited': '#7c3aed'
-            }[a] || '#64748b');
+                'Created': '#94a3b8', 'Published': '#f59e0b', 'Reviewed': '#3b82f6',
+                'Signed': '#10b981', 'Edited': '#a855f7'
+            }[a] || '#94a3b8');
 
             const actionIcon = a => ({
                 'Created': '📝', 'Published': '📢', 'Reviewed': '👁️', 'Signed': '✅', 'Edited': '✏️'
@@ -1301,11 +1352,11 @@
                     )}
 
                     <div style={{ position: 'relative' }}>
-                        {allEvents.length > 0 && <div style={{ position: 'absolute', left: 16, top: 0, bottom: 0, width: 2, background: '#f1f5f9', zIndex: 0 }} />}
+                        {allEvents.length > 0 && <div style={{ position: 'absolute', left: 16, top: 0, bottom: 0, width: 2, background: '#334155', zIndex: 0 }} />}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
                             {allEvents.map((a, i) => (
                                 <div key={i} style={{ display: 'flex', gap: 14, paddingBottom: 20, position: 'relative', zIndex: 1 }}>
-                                    <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#fff', border: '2px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 16 }}>
+                                    <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#262626', border: '2px solid #334155', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 16 }}>
                                         {actionIcon(a.action)}
                                     </div>
                                     <div className="card" style={{ flex: 1, padding: '12px 14px' }}>
@@ -1313,8 +1364,8 @@
                                             <span style={{ fontWeight: 700, fontSize: 13, color: actionColor(a.action) }}>{a.action}</span>
                                             <span style={{ fontSize: 10, color: '#94a3b8' }}>{fmtDate(a.ts || a.timestamp)}</span>
                                         </div>
-                                        <div style={{ fontSize: 13, color: '#334155', marginBottom: 4 }}>{a.user}</div>
-                                        <div style={{ fontSize: 11, color: '#94a3b8', background: '#f8fafc', borderRadius: 6, padding: '4px 8px', display: 'inline-block' }}>{a.momTitle}</div>
+                                        <div style={{ fontSize: 13, color: '#f1f5f9', marginBottom: 4 }}>{a.user}</div>
+                                        <div style={{ fontSize: 11, color: '#94a3b8', background: '#262626', borderRadius: 6, padding: '4px 8px', display: 'inline-block' }}>{a.momTitle}</div>
                                     </div>
                                 </div>
                             ))}
@@ -1326,49 +1377,197 @@
 
         /* ─────────────────────────── APP ─────────────────────────── */
         const App = () => {
-            const [currentUser, setCurrentUser] = React.useState(null);
+            const [users, setUsers] = React.useState([]);
+            const [currentUser, setCurrentUser] = React.useState(() => {
+                const saved = localStorage.getItem('mom_portal_user');
+                return saved ? JSON.parse(saved) : null;
+            });
             const [view, setView] = React.useState('tab');
             const [tab, setTab] = React.useState('home');
-            const [moms, setMoms] = React.useState(INITIAL_MOMS);
+            const [moms, setMoms] = React.useState([]);
             const [selMOM, setSelMOM] = React.useState(null);
             const [editMOM, setEditMOM] = React.useState(null);
             const [showSig, setShowSig] = React.useState(false);
             const [showNotif, setShowNotif] = React.useState(false);
             const [showUserMenu, setShowUserMenu] = React.useState(false);
             const [showChangePIN, setShowChangePIN] = React.useState(false);
+            const [loading, setLoading] = React.useState(true);
+
+            // Persist Session (Local Only)
+            React.useEffect(() => {
+                if (currentUser) {
+                    localStorage.setItem('mom_portal_user', JSON.stringify(currentUser));
+                } else {
+                    localStorage.removeItem('mom_portal_user');
+                }
+            }, [currentUser]);
+
+            // Sync with Firestore
+            React.useEffect(() => {
+                let syncedUsers = false;
+                let syncedMoms = false;
+
+                const handleError = (type, err) => {
+                    console.error(`${type} Sync Error:`, err);
+                    if (err.code === 'permission-denied') {
+                        alert("Firebase Permission Denied! Please check your Firestore Rules (set to Test Mode).");
+                    } else {
+                        alert(`${type} connection failed: ${err.message}`);
+                    }
+                    setLoading(false);
+                };
+
+                // Real-time Users
+                const unsubUsers = db.collection('users').onSnapshot(snap => {
+                    const data = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    if (data.length === 0) {
+                        DEFAULT_USERS.forEach(u => db.collection('users').doc(u.id).set(u).catch(e => console.error("Seed Users Error:", e)));
+                    } else {
+                        setUsers(data);
+                    }
+                    syncedUsers = true;
+                    if (syncedMoms) setLoading(false);
+                }, err => handleError('Users', err));
+
+                // Real-time MOMs
+                const unsubMoms = db.collection('moms').onSnapshot(snap => {
+                    const data = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    if (data.length === 0 && snap.metadata.fromCache === false) {
+                        DEFAULT_MOMS.forEach(m => db.collection('moms').doc(m.id).set(m).catch(e => console.error("Seed MOMs Error:", e)));
+                    } else {
+                        setMoms(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+                    }
+                    syncedMoms = true;
+                    if (syncedUsers) setLoading(false);
+                }, err => handleError('MOMs', err));
+
+                // Fallback timeout
+                const timer = setTimeout(() => {
+                    if (loading) {
+                        console.warn("Sync taking too long, forcing load state.");
+                        setLoading(false);
+                    }
+                }, 8000);
+
+                return () => { unsubUsers(); unsubMoms(); clearTimeout(timer); };
+            }, []);
+
+            const userMap = React.useMemo(() => Object.fromEntries(users.map(u => [u.id, u])), [users]);
+
             const unread = NOTIFICATIONS.filter(n => !n.read).length;
             const isManager = currentUser?.role === 'Society Manager';
 
-            const goTab = t => { setTab(t); setView(t === 'create' ? 'create' : 'tab'); };
-            const goMOM = m => { setSelMOM(m); setView('detail'); };
-            const goBack = () => { setEditMOM(null); setView('tab'); setTab(prev => prev === 'create' ? 'home' : prev); };
-            const logout = () => { setCurrentUser(null); setView('tab'); setTab('home'); setShowUserMenu(false); };
+            const goTab = t => {
+                const newState = { view: t === 'create' ? 'create' : 'tab', tab: t === 'create' ? 'home' : t, selMOM: null };
+                if (t === 'create') newState.tab = 'home';
+                window.history.pushState(newState, '', '#' + t);
+                setTab(newState.tab);
+                setView(newState.view);
+                setSelMOM(null);
+            };
 
-            const saveMOM = m => {
-                // Replace existing if editing, otherwise prepend
-                setMoms(prev => prev.some(x => x.id === m.id) ? prev.map(x => x.id === m.id ? m : x) : [m, ...prev]);
-                setEditMOM(null);
-                setTab('home');
+            const goMOM = m => {
+                const newState = { view: 'detail', selMOM: m, tab: tab };
+                window.history.pushState({ view: 'detail', momId: m.id, tab: tab }, '', '#mom/' + m.id);
+                setSelMOM(m);
+                setView('detail');
+            };
+
+            const goBack = () => {
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    setEditMOM(null);
+                    setView('tab');
+                    setTab('home');
+                }
+            };
+
+            const logout = () => {
+                setCurrentUser(null);
                 setView('tab');
+                setTab('home');
+                setShowUserMenu(false);
+                window.history.pushState(null, '', '#login');
             };
 
-            const doSign = sigData => {
-                const updated = moms.map(m => {
-                    if (m.id !== selMOM.id) return m;
-                    const sigs = [...m.signatures, { userId: currentUser.id, timestamp: sigData.timestamp, type: sigData.type, data: sigData.data }];
+            // Handle browser back/forward
+            React.useEffect(() => {
+                const handlePopState = (event) => {
+                    if (!event.state) {
+                        setView('tab');
+                        setTab('home');
+                        setSelMOM(null);
+                        return;
+                    }
+                    const { view, tab, momId } = event.state;
+                    if (view) setView(view);
+                    if (tab) setTab(tab);
+                    if (momId) {
+                        const m = moms.find(x => x.id === momId);
+                        if (m) setSelMOM(m);
+                    } else {
+                        setSelMOM(null);
+                    }
+                };
+                window.addEventListener('popstate', handlePopState);
+                
+                // Handle initial hash
+                const hash = window.location.hash;
+                if (hash.startsWith('#mom/')) {
+                    const id = hash.replace('#mom/', '');
+                    const m = moms.find(x => x.id === id);
+                    if (m) {
+                        setView('detail');
+                        setSelMOM(m);
+                    }
+                } else if (hash === '#create') {
+                    setView('create');
+                    setTab('home');
+                } else if (['#home', '#moms', '#audit'].includes(hash)) {
+                    setView('tab');
+                    setTab(hash.substring(1));
+                }
+
+                return () => window.removeEventListener('popstate', handlePopState);
+            }, [moms]);
+
+            const saveMOM = async m => {
+                try {
+                    await db.collection('moms').doc(m.id).set(m);
+                    setEditMOM(null);
+                    setTab('home');
+                    setView('tab');
+                } catch (err) {
+                    throw err; // Caught by CreateMOM
+                }
+            };
+
+            const doSign = async sigData => {
+                try {
+                    const m = selMOM;
+                    const sigs = [...(m.signatures || []), { userId: currentUser.id, timestamp: sigData.timestamp, type: sigData.type, data: sigData.data }];
                     const done = m.officeBearers.every(id => sigs.some(s => s.userId === id));
-                    const trail = [...m.auditTrail, { action: 'Signed', user: currentUser.name, ts: sigData.timestamp }];
-                    return { ...m, signatures: sigs, status: done ? 'Fully Signed' : 'Partially Signed', auditTrail: trail };
-                });
-                setMoms(updated);
-                setSelMOM(updated.find(m => m.id === selMOM.id));
-                setShowSig(false);
+                    const trail = [...(m.auditTrail || []), { action: 'Signed', user: currentUser.name, ts: sigData.timestamp }];
+                    const updatedMOM = { ...m, signatures: sigs, status: done ? 'Fully Signed' : 'Partially Signed', auditTrail: trail };
+
+                    await db.collection('moms').doc(m.id).update(updatedMOM);
+                    setSelMOM(updatedMOM);
+                    setShowSig(false);
+                } catch (err) {
+                    alert("Signing failed: " + err.message);
+                }
             };
 
-            const addComment = (momId, newComment) => {
-                const updated = moms.map(m => m.id === momId ? { ...m, comments: [...m.comments, newComment] } : m);
-                setMoms(updated);
-                setSelMOM(updated.find(m => m.id === momId));
+            const addComment = async (momId, newComment) => {
+                try {
+                    const m = moms.find(x => x.id === momId);
+                    const updatedMOM = { ...m, comments: [...(m.comments || []), newComment] };
+                    await db.collection('moms').doc(momId).update(updatedMOM);
+                    setSelMOM(updatedMOM);
+                } catch (err) {
+                    alert("Comment failed: " + err.message);
+                }
             };
 
             const editDraftMOM = () => {
@@ -1376,18 +1575,41 @@
                 setView('create');
             };
 
-            const publishDraftMOM = () => {
-                const now = new Date().toISOString();
-                const updated = moms.map(m => {
-                    if (m.id !== selMOM.id) return m;
-                    return { ...m, status: 'Under Review', auditTrail: [...m.auditTrail, { action: 'Published', user: currentUser.name, ts: now }] };
-                });
-                setMoms(updated);
-                setSelMOM(updated.find(m => m.id === selMOM.id));
+            const publishDraftMOM = async () => {
+                try {
+                    const now = new Date().toISOString();
+                    const m = selMOM;
+                    const updatedMOM = { ...m, status: 'Under Review', auditTrail: [...(m.auditTrail || []), { action: 'Published', user: currentUser.name, ts: now }] };
+                    await db.collection('moms').doc(m.id).update(updatedMOM);
+                    setSelMOM(updatedMOM);
+                } catch (err) {
+                    alert("Publish failed: " + err.message);
+                }
             };
 
+            const deleteMOM = async momId => {
+                if (!confirm("Are you sure you want to delete this MOM? This action cannot be undone.")) return;
+                try {
+                    await db.collection('moms').doc(momId).delete();
+                    setSelMOM(null);
+                    setView('tab');
+                    setTab('home');
+                } catch (err) {
+                    alert("Delete failed: " + err.message);
+                }
+            };
+
+            // Show loading state
+            if (loading) return <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#262626' }}>
+                <div style={{ textAlign: 'center' }}>
+                    <div style={{ width: 40, height: 40, border: '4px solid #f1f5f9', borderTopColor: '#D4AF37', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 16px' }} />
+                    <p style={{ color: '#64748b', fontSize: 14, fontWeight: 500 }}>Syncing Portal...</p>
+                    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+                </div>
+            </div>;
+
             // Show login if not authenticated
-            if (!currentUser) return <LoginScreen onLogin={u => { setCurrentUser(u); setView('tab'); setTab('home'); }} />;
+            if (!currentUser) return <LoginScreen users={users} onLogin={u => { setCurrentUser(u); setView('tab'); setTab('home'); }} />;
 
             const showTabBar = view !== 'detail' && view !== 'create';
 
@@ -1397,20 +1619,20 @@
                     <div className="topbar">
                         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                             {view === 'detail' && (
-                                <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '6px 8px 6px 0', color: '#475569', display: 'flex', alignItems: 'center' }} onClick={goBack}>
+                                <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '6px 8px 6px 0', color: '#cbd5e1', display: 'flex', alignItems: 'center' }} onClick={goBack}>
                                     <Icon n="arrowLeft" size={22} />
                                 </button>
                             )}
-                            <div style={{ width: 34, height: 34, background: '#4f46e5', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
-                                <Icon n="shield" size={18} color="#fff" />
+                            <div style={{ width: 34, height: 34, background: '#D4AF37', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000', overflow: 'hidden' }}>
+                                <img src="arv_royale_logo.png" style={{ width: '80%', height: '80%', objectFit: 'contain' }} alt="ARV" />
                             </div>
                             <div>
-                                <div style={{ fontWeight: 800, fontSize: 14, lineHeight: 1 }}>Smart MOM</div>
-                                <div style={{ fontSize: 10, color: '#94a3b8', fontWeight: 600 }}>Digital Signature Portal</div>
+                                <div style={{ fontWeight: 800, fontSize: 14, lineHeight: 1, color: '#fff' }}>ARV Royale</div>
+                                <div style={{ fontSize: 10, color: '#D4AF37', fontWeight: 700, textTransform: 'uppercase' }}>Society Portal</div>
                             </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <button onClick={() => setShowNotif(!showNotif)} style={{ background: 'none', border: 'none', cursor: 'pointer', position: 'relative', padding: 6, color: '#475569' }}>
+                            <button onClick={() => setShowNotif(!showNotif)} style={{ background: 'none', border: 'none', cursor: 'pointer', position: 'relative', padding: 6, color: '#cbd5e1' }}>
                                 <Icon n="bell" size={22} />
                                 {unread > 0 && <span style={{ position: 'absolute', top: 4, right: 4, width: 8, height: 8, background: '#ef4444', borderRadius: '50%', border: '2px solid #fff' }} />}
                             </button>
@@ -1420,12 +1642,12 @@
                                     {currentUser.initials}
                                 </button>
                                 {showUserMenu && (
-                                    <div style={{ position: 'absolute', right: 0, top: 42, background: '#fff', borderRadius: 14, boxShadow: '0 8px 32px rgba(0,0,0,.15)', border: '1px solid #f1f5f9', width: 220, zIndex: 200, overflow: 'hidden' }} onClick={e => e.stopPropagation()}>
-                                        <div style={{ padding: '14px 16px', borderBottom: '1px solid #f8fafc' }}>
+                                    <div style={{ position: 'absolute', right: 0, top: 42, background: '#262626', borderRadius: 14, boxShadow: '0 8px 32px rgba(0,0,0,.15)', border: '1px solid #334155', width: 220, zIndex: 200, overflow: 'hidden' }} onClick={e => e.stopPropagation()}>
+                                        <div style={{ padding: '14px 16px', borderBottom: '1px solid #334155' }}>
                                             <div style={{ fontWeight: 700, fontSize: 14 }}>{currentUser.name}</div>
                                             <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{currentUser.role}{currentUser.wing ? ' · ' + currentUser.wing : ''}</div>
                                         </div>
-                                        <button onClick={() => { setShowChangePIN(true); setShowUserMenu(false); }} style={{ width: '100%', padding: '12px 16px', border: 'none', background: 'none', cursor: 'pointer', color: '#4f46e5', fontWeight: 700, fontSize: 13, textAlign: 'left', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #f8fafc' }}>
+                                        <button onClick={() => { setShowChangePIN(true); setShowUserMenu(false); }} style={{ width: '100%', padding: '12px 16px', border: 'none', background: 'none', cursor: 'pointer', color: '#D4AF37', fontWeight: 700, fontSize: 13, textAlign: 'left', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #334155' }}>
                                             <span style={{ fontSize: 16 }}>🔑</span> Change PIN
                                         </button>
                                         <button onClick={logout} style={{ width: '100%', padding: '12px 16px', border: 'none', background: 'none', cursor: 'pointer', color: '#ef4444', fontWeight: 700, fontSize: 13, textAlign: 'left', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -1443,8 +1665,8 @@
                         {view === 'tab' && tab === 'home' && <Dashboard moms={moms} onMOM={goMOM} onCreate={isManager ? () => goTab('create') : null} currentUser={currentUser} />}
                         {view === 'tab' && tab === 'moms' && <MOMsView moms={moms} onMOM={goMOM} />}
                         {view === 'tab' && tab === 'audit' && <AuditView moms={moms} />}
-                        {view === 'create' && isManager && <CreateMOM onBack={goBack} onSave={saveMOM} currentUser={currentUser} editMOM={editMOM} />}
-                        {view === 'detail' && selMOM && <MOMDetail mom={selMOM} onBack={goBack} onSign={() => setShowSig(true)} onAddComment={addComment} onEdit={editDraftMOM} onPublish={publishDraftMOM} currentUser={currentUser} />}
+                        {view === 'create' && isManager && <CreateMOM onBack={goBack} onSave={saveMOM} currentUser={currentUser} editMOM={editMOM} users={users} />}
+                        {view === 'detail' && selMOM && <MOMDetail mom={selMOM} onBack={goBack} onSign={() => setShowSig(true)} onAddComment={addComment} onEdit={editDraftMOM} onPublish={publishDraftMOM} onDelete={deleteMOM} currentUser={currentUser} userMap={userMap} />}
                     </div>
 
                     {/* Bottom Tab Bar */}
