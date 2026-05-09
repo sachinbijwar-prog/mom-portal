@@ -491,6 +491,21 @@
                 ]
             }
         ];
+        const DEFAULT_TASKS = [
+            {
+                id: 't1', title: 'Fix Clubhouse Plumbing', description: 'Leaking pipe near the men restroom.', 
+                category: 'Plumbing', priority: 'High', status: 'Pending', 
+                assignedTo: 'u1', createdBy: 'u2', createdAt: new Date(Date.now() - 8 * 86400000).toISOString(), dueDate: new Date(Date.now() + 2 * 86400000).toISOString(),
+                comments: [{ id: 'tc1', userId: 'u1', text: 'Vendor is scheduled for tomorrow.', ts: new Date(Date.now() - 86400000).toISOString() }], 
+                delayReason: '', auditTrail: [{ action: 'Created', user: 'Sachin Bijwar', ts: new Date(Date.now() - 8 * 86400000).toISOString() }]
+            },
+            {
+                id: 't2', title: 'Renew Lift AMC', description: 'Annual contract expires next week.', 
+                category: 'Lift', priority: 'Critical', status: 'In Progress', 
+                assignedTo: 'u1', createdBy: 'u2', createdAt: new Date(Date.now() - 2 * 86400000).toISOString(), dueDate: new Date(Date.now() + 7 * 86400000).toISOString(),
+                comments: [], delayReason: '', auditTrail: [{ action: 'Created', user: 'Sachin Bijwar', ts: new Date(Date.now() - 2 * 86400000).toISOString() }]
+            }
+        ];
         const NOTIFICATIONS = [
             { id: 1, text: 'New MOM published: Monthly Committee Meeting – April 2024', read: false, time: '2 hrs ago' },
             { id: 2, text: 'Amit Sharma signed AGM 2024 MOM', read: true, time: '1 day ago' },
@@ -1381,6 +1396,420 @@
             );
         };
 
+        /* ─────────────────────────── TASK TRACKER COMPONENTS ─────────────────────────── */
+
+        const getAgingDays = dateStr => {
+            const diffTime = Math.abs(new Date() - new Date(dateStr));
+            return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        };
+
+        const getAgingColor = days => {
+            if (days <= 3) return '#10b981'; // Green
+            if (days <= 7) return '#f59e0b'; // Orange
+            return '#ef4444'; // Red
+        };
+
+        const TasksDashboard = ({ tasks, onTask, userMap }) => {
+            const pending = tasks.filter(t => t.status === 'Pending').length;
+            const inProgress = tasks.filter(t => t.status === 'In Progress').length;
+            const completed = tasks.filter(t => t.status === 'Completed').length;
+            
+            const now = new Date();
+            const overdue = tasks.filter(t => t.status !== 'Completed' && new Date(t.dueDate) < now).length;
+            const aging7Plus = tasks.filter(t => t.status !== 'Completed' && getAgingDays(t.createdAt) > 7).length;
+
+            const highPriority = tasks.filter(t => t.status !== 'Completed' && t.priority === 'Critical').slice(0, 3);
+            const recentCompleted = tasks.filter(t => t.status === 'Completed').slice(0, 3);
+
+            const exportTasks = () => {
+                const headers = ['Task ID', 'Title', 'Category', 'Priority', 'Status', 'Created Date', 'Created By', 'Assigned To', 'Aging (Days)', 'Description'];
+                const rows = tasks.map(t => [
+                    t.id, 
+                    `"${t.title.replace(/"/g, '""')}"`,
+                    t.category,
+                    t.priority,
+                    t.status,
+                    t.createdAt.split('T')[0],
+                    `"${userMap[t.createdBy]?.name || 'System'}"`,
+                    `"${userMap[t.assignedTo]?.name || 'Unassigned'}"`,
+                    getAgingDays(t.createdAt),
+                    `"${t.description.replace(/"/g, '""')}"`
+                ].join(','));
+                const csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows].join("\n");
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", `Task_Report_${new Date().toISOString().split('T')[0]}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+
+            return (
+                <div className="fade" style={{ paddingBottom: 90 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                        <h1 style={{ fontSize: 22, fontWeight: 800, margin: 0 }}>Dashboard</h1>
+                        <button className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: 12, display: 'flex', alignItems: 'center', gap: 6 }} onClick={exportTasks}>
+                            <Icon n="download" size={14} /> Export CSV
+                        </button>
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 20 }}>
+                        <div className="card" style={{ padding: 16, borderLeft: '4px solid #3b82f6' }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase' }}>Total Tasks</div>
+                            <div style={{ fontSize: 24, fontWeight: 800, color: '#f8fafc' }}>{tasks.length}</div>
+                        </div>
+                        <div className="card" style={{ padding: 16, borderLeft: '4px solid #10b981' }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: '#10b981', textTransform: 'uppercase' }}>Completed</div>
+                            <div style={{ fontSize: 24, fontWeight: 800, color: '#f8fafc' }}>{completed}</div>
+                        </div>
+                        <div className="card" style={{ padding: 16, borderLeft: '4px solid #f59e0b' }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: '#f59e0b', textTransform: 'uppercase' }}>Pending</div>
+                            <div style={{ fontSize: 24, fontWeight: 800, color: '#f8fafc' }}>{pending + inProgress}</div>
+                        </div>
+                        <div className="card" style={{ padding: 16, borderLeft: '4px solid #ef4444' }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: '#ef4444', textTransform: 'uppercase' }}>Overdue &gt; 7d</div>
+                            <div style={{ fontSize: 24, fontWeight: 800, color: '#f8fafc' }}>{overdue} / {aging7Plus}</div>
+                        </div>
+                    </div>
+
+                    <h2 style={{ fontSize: 16, fontWeight: 700, margin: '0 0 12px' }}>Critical Action Required</h2>
+                    {highPriority.length === 0 ? (
+                        <div style={{ padding: 16, textAlign: 'center', color: '#94a3b8', fontSize: 13 }}>No critical tasks! 🎉</div>
+                    ) : (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
+                            {highPriority.map(t => (
+                                <div key={t.id} className="card" style={{ padding: 14, borderLeft: '4px solid #ef4444' }} onClick={() => onTask(t)}>
+                                    <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 4 }}>{t.title}</div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#94a3b8' }}>
+                                        <span>Aging: {getAgingDays(t.createdAt)} days</span>
+                                        <span>By: {userMap[t.createdBy]?.name || 'System'}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const TaskListView = ({ tasks, onTask, userMap }) => {
+            const [filter, setFilter] = React.useState('All');
+            const statuses = ['All', 'Pending', 'In Progress', 'Completed'];
+            const filtered = filter === 'All' ? tasks : tasks.filter(t => t.status === filter);
+
+            return (
+                <div className="fade" style={{ paddingBottom: 90 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                        <h1 style={{ fontSize: 22, fontWeight: 800, margin: 0 }}>All Tasks</h1>
+                    </div>
+                    {/* Filter pills */}
+                    <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 8, marginBottom: 16, scrollbarWidth: 'none' }}>
+                        {statuses.map(s => (
+                            <button key={s} onClick={() => setFilter(s)}
+                                style={{
+                                    flexShrink: 0, padding: '6px 14px', borderRadius: 999, border: '1.5px solid', fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit',
+                                    background: filter === s ? '#D4AF37' : '#262626',
+                                    color: filter === s ? '#000' : '#94a3b8',
+                                    borderColor: filter === s ? '#D4AF37' : '#334155'
+                                }}>
+                                {s}
+                            </button>
+                        ))}
+                    </div>
+
+                    {filtered.length === 0 && (
+                        <div style={{ textAlign: 'center', padding: '48px 0', color: '#94a3b8' }}>
+                            <div style={{ fontSize: 40, marginBottom: 8 }}>📝</div>
+                            <p style={{ margin: 0, fontWeight: 600 }}>No tasks found</p>
+                            <p style={{ margin: '4px 0 0', fontSize: 13 }}>Try a different filter</p>
+                        </div>
+                    )}
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                        {filtered.map(t => {
+                            const aging = getAgingDays(t.createdAt);
+                            const agingColor = getAgingColor(aging);
+                            return (
+                                <div key={t.id} className="card" style={{ padding: 16 }} onClick={() => onTask(t)}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
+                                        <div style={{ fontWeight: 700, fontSize: 15 }}>{t.title}</div>
+                                        <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 999, background: t.status === 'Completed' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(255, 255, 255, 0.05)', color: t.status === 'Completed' ? '#34d399' : '#cbd5e1', border: t.status === 'Completed' ? '1px solid rgba(16, 185, 129, 0.2)' : '1px solid #334155' }}>
+                                            {t.status}
+                                        </span>
+                                    </div>
+                                    <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 12, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                                        {t.description}
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#cbd5e1', marginBottom: 8 }}>
+                                        <span><Icon n="user" size={12}/> {userMap[t.createdBy]?.name || 'System'}</span>
+                                        <span>To: {userMap[t.assignedTo]?.name || 'Unassigned'}</span>
+                                    </div>
+                                    <div style={{ display: 'flex', gap: 10, fontSize: 12, color: '#94a3b8', flexWrap: 'wrap' }}>
+                                        <span style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid #334155', padding: '2px 6px', borderRadius: 4 }}>{t.category}</span>
+                                        <span style={{ color: t.priority === 'Critical' ? '#ef4444' : t.priority === 'High' ? '#f59e0b' : '#3b82f6' }}>⚡ {t.priority}</span>
+                                        {t.status !== 'Completed' && (
+                                            <span style={{ color: agingColor, fontWeight: aging > 7 ? 700 : 400 }}>⌛ {aging} days</span>
+                                        )}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            );
+        };
+
+        const TaskDetail = ({ task, onBack, onUpdateStatus, onAddComment, onUploadDoc, onEdit, onDelete, currentUser, userMap }) => {
+            const [comment, setComment] = React.useState('');
+            
+            const aging = getAgingDays(task.createdAt);
+            const agingColor = getAgingColor(aging);
+            const isCreatorOrManager = currentUser.id === task.createdBy || currentUser.role === 'Society Manager';
+
+            const handleFileUpload = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                if (file.size > 5 * 1024 * 1024) return alert("File too large. Max 5MB.");
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    onUploadDoc(task.id, { name: file.name, data: ev.target.result, type: file.type });
+                };
+                reader.readAsDataURL(file);
+            };
+
+            return (
+                <div className="fade" style={{ paddingBottom: 90 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                            <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, margin: -8, color: '#cbd5e1' }} onClick={onBack}><Icon n="arrowLeft" size={24} /></button>
+                            <h1 style={{ fontSize: 20, fontWeight: 700, margin: 0, flex: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{task.title}</h1>
+                        </div>
+                        {isCreatorOrManager && (
+                            <div style={{ display: 'flex', gap: 8 }}>
+                                <button style={{ background: 'none', border: 'none', color: '#D4AF37', cursor: 'pointer', padding: 4 }} onClick={onEdit}><Icon n="edit" size={20}/></button>
+                                <button style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', padding: 4 }} onClick={() => { if(window.confirm('Are you sure you want to delete this task?')) onDelete(task.id); }}><Icon n="trash2" size={20}/></button>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="card" style={{ padding: 16, marginBottom: 16 }}>
+                        <div style={{ display: 'flex', gap: 10, marginBottom: 12, flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 999, background: task.status === 'Completed' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(255, 255, 255, 0.05)', color: task.status === 'Completed' ? '#34d399' : '#cbd5e1', border: task.status === 'Completed' ? '1px solid rgba(16, 185, 129, 0.2)' : '1px solid #334155' }}>
+                                {task.status}
+                            </span>
+                            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 999, background: 'rgba(255,255,255,0.05)', border: '1px solid #334155', color: '#cbd5e1' }}>
+                                {task.category}
+                            </span>
+                            <span style={{ fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 999, background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)', color: '#f87171' }}>
+                                {task.priority}
+                            </span>
+                        </div>
+                        <p style={{ margin: 0, fontSize: 14, color: '#f1f5f9', lineHeight: 1.6 }}>{task.description}</p>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 20 }}>
+                        <div className="card" style={{ padding: 14 }}>
+                            <div style={{ fontSize: 10, fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 4 }}>Created By</div>
+                            <div style={{ fontSize: 13, fontWeight: 700 }}>{userMap[task.createdBy]?.name || 'System'}</div>
+                        </div>
+                        <div className="card" style={{ padding: 14 }}>
+                            <div style={{ fontSize: 10, fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 4 }}>Assigned To</div>
+                            <div style={{ fontSize: 13, fontWeight: 700, color: '#D4AF37' }}>{userMap[task.assignedTo]?.name || 'Unassigned'}</div>
+                        </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 20 }}>
+                        <div className="card" style={{ padding: 14 }}>
+                            <div style={{ fontSize: 10, fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 4 }}>Created Date</div>
+                            <div style={{ fontSize: 13, fontWeight: 700 }}>{fmtDate(task.createdAt)}</div>
+                        </div>
+                        <div className="card" style={{ padding: 14 }}>
+                            <div style={{ fontSize: 10, fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 4 }}>Aging</div>
+                            <div style={{ fontSize: 13, fontWeight: 700, color: agingColor }}>{aging} days old</div>
+                        </div>
+                    </div>
+
+                    {/* Quick Actions for Managers */}
+                    {currentUser.role === 'Society Manager' && task.status !== 'Completed' && (
+                        <div style={{ marginBottom: 20, display: 'flex', gap: 10 }}>
+                            <button className="btn btn-primary" style={{ flex: 1, padding: '10px 0', fontSize: 13 }} onClick={() => onUpdateStatus(task.id, 'In Progress')}>Start Work</button>
+                            <button className="btn btn-secondary" style={{ flex: 1, padding: '10px 0', fontSize: 13, background: '#10b981', color: '#fff', border: 'none' }} onClick={() => onUpdateStatus(task.id, 'Completed')}>Mark Done</button>
+                        </div>
+                    )}
+
+                    {/* Attached Documents */}
+                    <div style={{ marginBottom: 20 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                            <div style={{ fontSize: 11, fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase' }}>Documents</div>
+                            <label style={{ color: '#D4AF37', fontSize: 12, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4 }}>
+                                <Icon n="upload" size={14} /> Upload File
+                                <input type="file" accept="image/*,.pdf,.doc,.docx" style={{ display: 'none' }} onChange={handleFileUpload} />
+                            </label>
+                        </div>
+                        {(task.documents || []).length === 0 && <div style={{ fontSize: 12, color: '#64748b', fontStyle: 'italic' }}>No documents attached.</div>}
+                        {(task.documents || []).map((doc, idx) => (
+                            <div key={idx} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#262626', border: '1px solid #334155', padding: '10px 14px', borderRadius: 12, marginBottom: 8 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                    <Icon n="fileText" size={18} color="#94a3b8" />
+                                    <span style={{ fontSize: 13, color: '#f8fafc', maxWidth: 180, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{doc.name}</span>
+                                </div>
+                                <a href={doc.data} download={doc.name} style={{ color: '#3b82f6', fontSize: 12, fontWeight: 700, textDecoration: 'none' }}>Download</a>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Timeline / Comments */}
+                    <div>
+                        <div style={{ fontSize: 11, fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 12 }}>Updates & Comments</div>
+                        {task.comments.map(c => {
+                            const u = userMap[c.userId] || { name: 'Unknown' };
+                            return (
+                                <div key={c.id} style={{ background: '#262626', border: '1px solid #334155', padding: 12, borderRadius: 12, marginBottom: 8 }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                                        <span style={{ fontSize: 12, fontWeight: 700, color: '#f8fafc' }}>{u.name}</span>
+                                        <span style={{ fontSize: 10, color: '#94a3b8' }}>{fmtDate(c.ts)} {fmtTime(c.ts)}</span>
+                                    </div>
+                                    <div style={{ fontSize: 13, color: '#cbd5e1' }}>{c.text}</div>
+                                </div>
+                            );
+                        })}
+                        <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+                            <input className="input-field" style={{ flex: 1 }} placeholder="Add a comment..." value={comment} onChange={e => setComment(e.target.value)} onKeyDown={e => { if (e.key === 'Enter' && comment.trim()) { onAddComment(task.id, comment); setComment(''); } }} />
+                            <button className="btn btn-primary" style={{ width: 44, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => { if (comment.trim()) { onAddComment(task.id, comment); setComment(''); } }}><Icon n="send" size={18} /></button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const CreateTask = ({ onBack, onSave, users, currentUser, editTask }) => {
+            const [title, setTitle] = React.useState(editTask?.title || '');
+            const [desc, setDesc] = React.useState(editTask?.description || '');
+            const [category, setCategory] = React.useState(editTask?.category || 'Plumbing');
+            const [priority, setPriority] = React.useState(editTask?.priority || 'Medium');
+            const [assignedTo, setAssignedTo] = React.useState(editTask?.assignedTo || '');
+            const [saving, setSaving] = React.useState(false);
+
+            const handleSave = async () => {
+                if (!title || !desc) return alert('Fill required fields');
+                setSaving(true);
+                const newTask = {
+                    ...editTask,
+                    id: editTask ? editTask.id : 't' + Date.now(), 
+                    title, description: desc, category, priority, 
+                    status: editTask ? editTask.status : 'Pending',
+                    assignedTo, 
+                    createdBy: editTask ? editTask.createdBy : currentUser.id, 
+                    createdAt: editTask ? editTask.createdAt : new Date().toISOString(), 
+                    dueDate: editTask ? editTask.dueDate : new Date().toISOString(),
+                    comments: editTask ? editTask.comments : [], 
+                    documents: editTask?.documents || [],
+                    delayReason: editTask ? editTask.delayReason : '', 
+                    auditTrail: editTask ? editTask.auditTrail : []
+                };
+                try {
+                    await onSave(newTask);
+                } catch(e) { alert(e.message); setSaving(false); }
+            };
+
+            return (
+                <div className="fade" style={{ paddingBottom: 90 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                        <button style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, margin: -8, color: '#cbd5e1' }} onClick={onBack}><Icon n="arrowLeft" size={24} /></button>
+                        <h1 style={{ fontSize: 20, fontWeight: 700, margin: 0, color: '#f8fafc' }}>{editTask ? 'Edit Task' : 'New Task'}</h1>
+                    </div>
+                    
+                    <div className="card" style={{ padding: 16 }}>
+                        <div style={{ marginBottom: 16 }}>
+                            <label className="label">Task Title</label>
+                            <input className="input-field" value={title} onChange={e => setTitle(e.target.value)} placeholder="e.g. Fix lobby lights" />
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                            <label className="label">Category</label>
+                            <select className="input-field" value={category} onChange={e => setCategory(e.target.value)}>
+                                <option>Plumbing</option><option>Electrical</option><option>Lift</option><option>Security</option>
+                                <option>Cleaning</option><option>Garden</option><option>Civil Work</option><option>Vendor Work</option><option>General</option>
+                            </select>
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                            <label className="label">Priority</label>
+                            <select className="input-field" value={priority} onChange={e => setPriority(e.target.value)}>
+                                <option>Low</option><option>Medium</option><option>High</option><option>Critical</option>
+                            </select>
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                            <label className="label">Assign To (Optional)</label>
+                            <select className="input-field" value={assignedTo} onChange={e => setAssignedTo(e.target.value)}>
+                                <option value="">Unassigned</option>
+                                {users.filter(u => u.role !== 'Resident').map(u => (
+                                    <option key={u.id} value={u.id}>{u.name} ({u.role})</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div style={{ marginBottom: 16 }}>
+                            <label className="label">Description</label>
+                            <textarea className="input-field" value={desc} onChange={e => setDesc(e.target.value)} placeholder="Details..." rows={3} style={{ resize: 'vertical' }} />
+                        </div>
+                        <button className="btn btn-primary" style={{ width: '100%', padding: '13px 0' }} onClick={handleSave} disabled={saving}>{saving ? 'Saving...' : editTask ? 'Save Changes' : 'Create Task'}</button>
+                    </div>
+                </div>
+            );
+        };
+
+        const TaskAuditView = ({ tasks }) => {
+            const allEvents = tasks.flatMap(t =>
+                (t.auditTrail || []).map(a => ({
+                    ...a,
+                    taskTitle: t.title,
+                    taskId: t.id,
+                }))
+            ).sort((a, b) => new Date(b.ts || b.timestamp) - new Date(a.ts || a.timestamp));
+
+            const actionColor = a => ({
+                'Created': '#94a3b8', 'Edited': '#a855f7', 'Status Changed': '#3b82f6',
+                'Completed': '#10b981', 'Document Uploaded': '#f59e0b', 'Comment Added': '#D4AF37'
+            }[a] || '#94a3b8');
+
+            const actionIcon = a => ({
+                'Created': '📝', 'Edited': '✏️', 'Status Changed': '🔄', 'Completed': '✅', 'Document Uploaded': '📎', 'Comment Added': '💬'
+            }[a] || '📋');
+
+            return (
+                <div className="fade" style={{ paddingBottom: 90 }}>
+                    <h1 style={{ margin: '0 0 4px', fontSize: 22, fontWeight: 700 }}>Audit Trail</h1>
+                    <p style={{ margin: '0 0 20px', fontSize: 13, color: '#64748b' }}>{allEvents.length} total events across all Tasks</p>
+                    
+                    {allEvents.length === 0 && (
+                        <div style={{ textAlign: 'center', padding: '48px 0', color: '#94a3b8' }}>
+                            <div style={{ fontSize: 40, marginBottom: 8 }}>🔍</div>
+                            <p style={{ margin: 0, fontWeight: 600 }}>No audit events yet</p>
+                        </div>
+                    )}
+
+                    <div style={{ position: 'relative' }}>
+                        {allEvents.length > 0 && <div style={{ position: 'absolute', left: 16, top: 0, bottom: 0, width: 2, background: '#334155', zIndex: 0 }} />}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                            {allEvents.map((a, i) => (
+                                <div key={i} style={{ display: 'flex', gap: 14, paddingBottom: 20, position: 'relative', zIndex: 1 }}>
+                                    <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#262626', border: '2px solid #334155', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 16 }}>
+                                        {actionIcon(a.action)}
+                                    </div>
+                                    <div className="card" style={{ flex: 1, padding: '12px 14px' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+                                            <span style={{ fontWeight: 700, fontSize: 13, color: actionColor(a.action) }}>{a.action}</span>
+                                            <span style={{ fontSize: 10, color: '#94a3b8' }}>{fmtDate(a.ts || a.timestamp)}</span>
+                                        </div>
+                                        <div style={{ fontSize: 13, color: '#f1f5f9', marginBottom: 4 }}>{a.user}</div>
+                                        <div style={{ fontSize: 11, color: '#94a3b8', background: '#262626', borderRadius: 6, padding: '4px 8px', display: 'inline-block' }}>{a.taskTitle}</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
         /* ─────────────────────────── APP ─────────────────────────── */
         const App = () => {
             const [users, setUsers] = React.useState([]);
@@ -1388,11 +1817,15 @@
                 const saved = localStorage.getItem('mom_portal_user');
                 return saved ? JSON.parse(saved) : null;
             });
+            const [currentModule, setCurrentModule] = React.useState('select'); // 'select' | 'mom' | 'tasks'
             const [view, setView] = React.useState('tab');
             const [tab, setTab] = React.useState('home');
             const [moms, setMoms] = React.useState([]);
+            const [tasks, setTasks] = React.useState([]);
             const [selMOM, setSelMOM] = React.useState(null);
+            const [selTask, setSelTask] = React.useState(null);
             const [editMOM, setEditMOM] = React.useState(null);
+            const [editTask, setEditTask] = React.useState(null);
             const [showSig, setShowSig] = React.useState(false);
             const [showNotif, setShowNotif] = React.useState(false);
             const [showUserMenu, setShowUserMenu] = React.useState(false);
@@ -1447,6 +1880,16 @@
                     if (syncedUsers) setLoading(false);
                 }, err => handleError('MOMs', err));
 
+                // Real-time Tasks
+                const unsubTasks = db.collection('tasks').onSnapshot(snap => {
+                    const data = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    if (data.length === 0 && snap.metadata.fromCache === false) {
+                        DEFAULT_TASKS.forEach(t => db.collection('tasks').doc(t.id).set(t).catch(e => console.error("Seed Tasks Error:", e)));
+                    } else {
+                        setTasks(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+                    }
+                }, err => handleError('Tasks', err));
+
                 // Fallback timeout
                 const timer = setTimeout(() => {
                     if (loading) {
@@ -1455,7 +1898,7 @@
                     }
                 }, 8000);
 
-                return () => { unsubUsers(); unsubMoms(); clearTimeout(timer); };
+                return () => { unsubUsers(); unsubMoms(); unsubTasks(); clearTimeout(timer); };
             }, []);
 
             const userMap = React.useMemo(() => Object.fromEntries(users.map(u => [u.id, u])), [users]);
@@ -1654,7 +2097,77 @@
 
             const showTabBar = view !== 'detail' && view !== 'create';
 
-            return (
+            const userMenuNode = (
+                <div style={{ position: 'relative' }}>
+                    <button onClick={() => setShowUserMenu(!showUserMenu)} style={{ width: 34, height: 34, borderRadius: '50%', background: currentUser.color, border: '2px solid rgba(255,255,255,.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 12, color: '#fff', cursor: 'pointer', fontFamily: 'inherit' }}>
+                        {currentUser.initials}
+                    </button>
+                    {showUserMenu && (
+                        <div style={{ position: 'absolute', right: 0, top: 42, background: '#262626', borderRadius: 14, boxShadow: '0 8px 32px rgba(0,0,0,.15)', border: '1px solid #334155', width: 220, zIndex: 200, overflow: 'hidden' }} onClick={e => e.stopPropagation()}>
+                            <div style={{ padding: '14px 16px', borderBottom: '1px solid #334155' }}>
+                                <div style={{ fontWeight: 700, fontSize: 14 }}>{currentUser.name}</div>
+                                <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{currentUser.role}{currentUser.wing ? ' · ' + currentUser.wing : ''}</div>
+                            </div>
+                            {currentModule !== 'select' && (
+                                <button onClick={() => { setCurrentModule('select'); setShowUserMenu(false); }} style={{ width: '100%', padding: '12px 16px', border: 'none', background: 'none', cursor: 'pointer', color: '#3b82f6', fontWeight: 700, fontSize: 13, textAlign: 'left', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #334155' }}>
+                                    <span style={{ fontSize: 16 }}>🗂️</span> Switch Module
+                                </button>
+                            )}
+                            <button onClick={() => { setShowChangePIN(true); setShowUserMenu(false); }} style={{ width: '100%', padding: '12px 16px', border: 'none', background: 'none', cursor: 'pointer', color: '#D4AF37', fontWeight: 700, fontSize: 13, textAlign: 'left', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #334155' }}>
+                                <span style={{ fontSize: 16 }}>🔑</span> Change PIN
+                            </button>
+                            <button onClick={logout} style={{ width: '100%', padding: '12px 16px', border: 'none', background: 'none', cursor: 'pointer', color: '#ef4444', fontWeight: 700, fontSize: 13, textAlign: 'left', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 8 }}>
+                                <span style={{ fontSize: 16 }}>🚪</span> Sign Out
+                            </button>
+                        </div>
+                    )}
+                    {showUserMenu && <div style={{ position: 'fixed', inset: 0, zIndex: 199 }} onClick={() => setShowUserMenu(false)} />}
+                </div>
+            );
+
+            if (currentModule === 'select') {
+                return (
+                    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#f8fafc', overflow: 'hidden' }}>
+                        <div className="topbar">
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                <div style={{ width: 34, height: 34, background: '#D4AF37', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000', overflow: 'hidden' }}>
+                                    <img src="arv_royale_logo.png" style={{ width: '80%', height: '80%', objectFit: 'contain' }} alt="ARV" />
+                                </div>
+                                <div>
+                                    <div style={{ fontWeight: 800, fontSize: 14, lineHeight: 1, color: '#fff' }}>ARV Royale</div>
+                                    <div style={{ fontSize: 10, color: '#D4AF37', fontWeight: 700, textTransform: 'uppercase' }}>Society Portal</div>
+                                </div>
+                            </div>
+                            {userMenuNode}
+                        </div>
+                        <div className="fade" style={{ flex: 1, padding: 20, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 16, maxWidth: 480, margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+                            <div style={{ textAlign: 'center', marginBottom: 20 }}>
+                                <h2 style={{ margin: 0, fontSize: 24, fontWeight: 800, color: '#334155' }}>Select Module</h2>
+                                <p style={{ margin: '4px 0 0', fontSize: 14, color: '#64748b' }}>Welcome, {currentUser.name}</p>
+                            </div>
+                            
+                            <div className="card" style={{ padding: '24px 20px', textAlign: 'center', cursor: 'pointer', border: '2px solid transparent', transition: 'all 0.2s' }} onClick={() => { setCurrentModule('mom'); setTab('home'); setView('tab'); }}>
+                                <div style={{ width: 64, height: 64, background: 'rgba(79, 70, 229, 0.1)', borderRadius: 16, margin: '0 auto 16px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#818cf8' }}>
+                                    <Icon n="fileText" size={32} />
+                                </div>
+                                <h3 style={{ margin: '0 0 8px', fontSize: 18, fontWeight: 700, color: '#f8fafc' }}>MOM Portal</h3>
+                                <p style={{ margin: 0, fontSize: 13, color: '#94a3b8', lineHeight: 1.4 }}>Digital signatures, meeting minutes, and audit trails.</p>
+                            </div>
+                            
+                            <div className="card" style={{ padding: '24px 20px', textAlign: 'center', cursor: 'pointer', border: '2px solid transparent', transition: 'all 0.2s' }} onClick={() => { setCurrentModule('tasks'); setTab('home'); setView('tab'); }}>
+                                <div style={{ width: 64, height: 64, background: 'rgba(5, 150, 105, 0.1)', borderRadius: 16, margin: '0 auto 16px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#34d399' }}>
+                                    <Icon n="checkCircle" size={32} />
+                                </div>
+                                <h3 style={{ margin: '0 0 8px', fontSize: 18, fontWeight: 700, color: '#f8fafc' }}>Task Tracker</h3>
+                                <p style={{ margin: 0, fontSize: 13, color: '#94a3b8', lineHeight: 1.4 }}>Operations, maintenance tasks, tracking &amp; aging.</p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (currentModule === 'mom') {
+                return (
                 <>
                     {/* Top Bar */}
                     <div className="topbar">
@@ -1673,31 +2186,14 @@
                             </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <button onClick={() => { setCurrentModule('select'); }} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 6, color: '#cbd5e1', marginRight: 4 }}>
+                                <Icon n="home" size={22} />
+                            </button>
                             <button onClick={() => setShowNotif(!showNotif)} style={{ background: 'none', border: 'none', cursor: 'pointer', position: 'relative', padding: 6, color: '#cbd5e1' }}>
                                 <Icon n="bell" size={22} />
                                 {unread > 0 && <span style={{ position: 'absolute', top: 4, right: 4, width: 8, height: 8, background: '#ef4444', borderRadius: '50%', border: '2px solid #fff' }} />}
                             </button>
-                            {/* Avatar + menu */}
-                            <div style={{ position: 'relative' }}>
-                                <button onClick={() => setShowUserMenu(!showUserMenu)} style={{ width: 34, height: 34, borderRadius: '50%', background: currentUser.color, border: '2px solid rgba(255,255,255,.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 12, color: '#fff', cursor: 'pointer', fontFamily: 'inherit' }}>
-                                    {currentUser.initials}
-                                </button>
-                                {showUserMenu && (
-                                    <div style={{ position: 'absolute', right: 0, top: 42, background: '#262626', borderRadius: 14, boxShadow: '0 8px 32px rgba(0,0,0,.15)', border: '1px solid #334155', width: 220, zIndex: 200, overflow: 'hidden' }} onClick={e => e.stopPropagation()}>
-                                        <div style={{ padding: '14px 16px', borderBottom: '1px solid #334155' }}>
-                                            <div style={{ fontWeight: 700, fontSize: 14 }}>{currentUser.name}</div>
-                                            <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{currentUser.role}{currentUser.wing ? ' · ' + currentUser.wing : ''}</div>
-                                        </div>
-                                        <button onClick={() => { setShowChangePIN(true); setShowUserMenu(false); }} style={{ width: '100%', padding: '12px 16px', border: 'none', background: 'none', cursor: 'pointer', color: '#D4AF37', fontWeight: 700, fontSize: 13, textAlign: 'left', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #334155' }}>
-                                            <span style={{ fontSize: 16 }}>🔑</span> Change PIN
-                                        </button>
-                                        <button onClick={logout} style={{ width: '100%', padding: '12px 16px', border: 'none', background: 'none', cursor: 'pointer', color: '#ef4444', fontWeight: 700, fontSize: 13, textAlign: 'left', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 8 }}>
-                                            <span style={{ fontSize: 16 }}>🚪</span> Sign Out
-                                        </button>
-                                    </div>
-                                )}
-                                {showUserMenu && <div style={{ position: 'fixed', inset: 0, zIndex: 199 }} onClick={() => setShowUserMenu(false)} />}
-                            </div>
+                            {userMenuNode}
                         </div>
                     </div>
 
@@ -1750,6 +2246,96 @@
                     )}
                 </>
             );
+            }
+
+            const saveTask = async (taskData) => {
+                await db.collection('tasks').doc(taskData.id).set(taskData);
+                setEditTask(null);
+                setView('tab');
+                setTab('home');
+            };
+
+            const deleteTask = async (taskId) => {
+                await db.collection('tasks').doc(taskId).delete();
+                setSelTask(null);
+                setView('tab');
+                setTab('tasks');
+            };
+
+            const uploadTaskDoc = async (taskId, docData) => {
+                const now = new Date().toISOString();
+                const trail = [...(selTask.auditTrail || []), { action: 'Document Uploaded', user: currentUser.name, ts: now }];
+                const updated = { ...selTask, documents: [...(selTask.documents || []), docData], auditTrail: trail };
+                await db.collection('tasks').doc(taskId).update({ documents: updated.documents, auditTrail: trail });
+                setSelTask(updated);
+            };
+
+            // Task Tracker Module
+            if (currentModule === 'tasks') {
+                return (
+                    <>
+                        <div className="topbar">
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                <button onClick={() => { setCurrentModule('select'); }} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '6px 8px 6px 0', color: '#cbd5e1', display: 'flex', alignItems: 'center' }}>
+                                    <Icon n="arrowLeft" size={22} />
+                                </button>
+                                <div>
+                                    <div style={{ fontWeight: 800, fontSize: 14, lineHeight: 1, color: '#fff' }}>Task Tracker</div>
+                                    <div style={{ fontSize: 10, color: '#10b981', fontWeight: 700, textTransform: 'uppercase' }}>ARV Royale</div>
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                                {userMenuNode}
+                            </div>
+                        </div>
+                        <div className="page" style={{ padding: '0px 10px', marginTop: 10 }}>
+                            {view === 'tab' && tab === 'home' && <TasksDashboard tasks={tasks} userMap={userMap} onTask={t => { setSelTask(t); setView('detail'); setTab('tasks'); }} />}
+                            {view === 'tab' && tab === 'tasks' && <TaskListView tasks={tasks} userMap={userMap} onTask={t => { setSelTask(t); setView('detail'); }} />}
+                            {view === 'tab' && tab === 'audit' && <TaskAuditView tasks={tasks} />}
+                            {view === 'create' && isManager && <CreateTask onBack={() => { setEditTask(null); setView('tab'); setTab('home'); }} onSave={saveTask} users={users} currentUser={currentUser} editTask={editTask} />}
+                            {view === 'detail' && selTask && <TaskDetail task={selTask} onBack={() => { setSelTask(null); setView('tab'); }} 
+                                onUpdateStatus={async (id, s) => { 
+                                    const now = new Date().toISOString();
+                                    const action = s === 'Completed' ? 'Completed' : 'Status Changed';
+                                    const trail = [...(selTask.auditTrail || []), { action, user: currentUser.name, ts: now }];
+                                    const updated = { ...selTask, status: s, auditTrail: trail }; 
+                                    await db.collection('tasks').doc(id).update({ status: s, auditTrail: trail }); 
+                                    setSelTask(updated); 
+                                }} 
+                                onAddComment={async (id, txt) => { 
+                                    const now = new Date().toISOString();
+                                    const c = { id: 'c'+Date.now(), userId: currentUser.id, text: txt, ts: now }; 
+                                    const trail = [...(selTask.auditTrail || []), { action: 'Comment Added', user: currentUser.name, ts: now }];
+                                    const updated = { ...selTask, comments: [...selTask.comments, c], auditTrail: trail }; 
+                                    await db.collection('tasks').doc(id).update({ comments: updated.comments, auditTrail: trail }); 
+                                    setSelTask(updated); 
+                                }} 
+                                onUploadDoc={uploadTaskDoc} onEdit={() => { setEditTask(selTask); setView('create'); }} onDelete={deleteTask} currentUser={currentUser} userMap={userMap} />}
+                        </div>
+                        {showTabBar && (
+                            <div className="tabbar">
+                                <button className={tab === 'home' ? 'active' : ''} onClick={() => goTab('home')}>
+                                    <Icon n="home" size={20} /><span>Dashboard</span>
+                                </button>
+                                <button className={tab === 'tasks' ? 'active' : ''} onClick={() => goTab('tasks')}>
+                                    <Icon n="list" size={20} /><span>Tasks</span>
+                                </button>
+                                {isManager && (
+                                    <button onClick={() => goTab('create')}>
+                                        <Icon n="plus" size={20} /><span>New Task</span>
+                                    </button>
+                                )}
+                                <button className={tab === 'audit' ? 'active' : ''} onClick={() => goTab('audit')}>
+                                    <Icon n="history" size={20} /><span>Audit</span>
+                                </button>
+                            </div>
+                        )}
+                        {showChangePIN && <ChangePINModal user={currentUser} onClose={() => setShowChangePIN(false)} onChanged={() => setShowChangePIN(false)} />}
+                    </>
+                );
+            }
+
+            return null;
         };
 
         ReactDOM.createRoot(document.getElementById('root')).render(<App />);
